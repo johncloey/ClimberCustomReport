@@ -109,6 +109,15 @@ define( [
 						
 	}
 
+	var displayText = {
+
+		type: "string",
+		label: "Display text",
+		ref: "props.displayText",
+		defaultValue: "Custom Report"
+					
+	}
+
 	// ****************************************************************************************
 	// Property Panel Definition
 	// ****************************************************************************************
@@ -128,7 +137,8 @@ define( [
 				items: {
 					//tagSetting: tagSetting,
 					tagColor: tagColor,
-					sortOrder: sortOrder
+					sortOrder: sortOrder,
+					displayText: displayText
 				}
 			},
 			about: about,
@@ -152,6 +162,17 @@ define( [
 		}
 	};
 
+	var addons = { 
+		type: "items",
+		component: "expandable-items",
+		translation: "properties.addons",
+		items: {
+			dataHandling: {
+				uses: "dataHandling"
+			}
+		}
+	}
+
 	// Return values
 	return {
 		type: "items",
@@ -161,7 +182,7 @@ define( [
 			//dimensions: dimensions,
 			//measures: measures,
 			//sorting: sorting,
-			//addons: addons,
+			addons: addons,
 			appearance: appearancePanel
 
 		}

@@ -26,17 +26,61 @@ define([
             },
 
             resize: function($element, layout) {
+                if ($element.context.clientHeight < 300) {
+                    if (!this.$scope.collapsed) {
+                        this.$scope.collapsed = true;
+                        this.$scope.updateTable();
+                    }                    
+                } else {
+                     if (this.$scope.collapsed) {
+                        this.$scope.collapsed = false;
+                        this.$scope.updateTable();
+                    } 
+                }
                 this.$scope.size.clientHeight = $element.context.clientHeight;
                 this.$scope.size.clientWidth = $element.context.clientWidth;
             },
 
             paint: function($element, layout) {
+                if ($element.context.clientHeight < 300) {
+                    if (!this.$scope.collapsed) {
+                        this.$scope.collapsed = true;
+                        this.$scope.updateTable();
+                    }                    
+                } else {
+                     if (this.$scope.collapsed) {
+                        this.$scope.collapsed = false;
+                        this.$scope.updateTable();
+                    } 
+                }
                 this.$scope.size.clientHeight = $element.context.clientHeight;
                 this.$scope.size.clientWidth = $element.context.clientWidth;
             },
 
             getExportRawDataOptions: function(a, c, e) {
                 c.getVisualization().then(function(visualization) {
+                    if ($('#cl-customreport-container').scope().expanded) {
+                        a.addItem({
+                            translation: "Collapse table",
+                            tid: "Collapse",
+                            icon: "icon-minimize",
+                            select: function() {
+                                console.log($('#cl-customreport-container').scope());
+                                $('#cl-customreport-container').scope().collapse();
+                            }
+                        });
+
+                    } else {
+                        a.addItem({
+                            translation: "Expand table",
+                            tid: "Expand",
+                            icon: "icon-maximize",
+                            select: function() {
+                                console.log($('#cl-customreport-container').scope());
+                                $('#cl-customreport-container').scope().expand();
+                            }
+                        });
+                    }
                     return a.addItem({
                         translation: "contextMenu.export",
                         tid: "export",
@@ -57,11 +101,15 @@ define([
                     clientWidth: -1
                 }
 
+                $scope.expanded = false;
+                $scope.collapsed = false;
+
                 $scope.data = {
                     tag: null,
                     tagColor: true,
                     sortOrder: 'SortByA',
                     activeTable: null,
+                    displayText: 'Custom Report',
                     masterObjectList: [],
                     masterDimensions: [],
                     masterMeasures: []
@@ -425,6 +473,7 @@ define([
                                 $scope.serializeReport();
                             });
                         }
+                        $(".rain").hide();
                     }
                 }
 
@@ -472,7 +521,15 @@ define([
                     }
                     $scope.updateTable();
                 }
+                $scope.expand = function() { 
+                    $scope.expanded = true;
+                    $scope.updateTable();
+                }
 
+                $scope.collapse = function() { 
+                    $scope.expanded = false;
+                    $scope.updateTable();
+                }
                 $scope.exportData = function(string) {
                     if ($scope.report.state.length > 0) {
                         var options = {};
@@ -561,6 +618,10 @@ define([
                     $scope.data.tagColor = newStyle;
                 });
 
+                 $scope.$watchCollection('layout.props.displayText', function(newText) {
+                    $scope.data.displayText = newText;
+                });
+
                 $scope.$watchCollection('layout.props.dimensionSortOrder', function(newStyle) {
                     $scope.data.sortOrder = newStyle;
                     $scope.loadActiveTable();
@@ -598,23 +659,25 @@ define([
                     $('#reportSortable').height();
 
                     var reportSortableHeight = $('#reportSortable').height();
-
-                    return {
-                        "height": ($scope.size.clientHeight - labelsAndButtons - reportSortableHeight) + "px"
+                    if ($scope.expanded) {
+                        return { "height": $scope.size.clientHeight + "px" }
+                    } else {
+                        return { "height": ($scope.size.clientHeight - labelsAndButtons - reportSortableHeight) + "px", "padding-top":"18px" }
                     }
-
                 }
                 $scope.getContainerWidth = function(container) {
                     var containerLeftWidth = 220;
+                    var containerWidth = {};
                     if (container == 'left') {
-                        return {
-                            "width": containerLeftWidth + "px"
-                        }
+                       containerWidth = containerLeftWidth;
                     } else {
-                        return {
-                            "width": ($scope.size.clientWidth - containerLeftWidth - 20) + "px"
+                        if ($scope.expanded) {
+                            containerWidth =  $scope.size.clientWidth;
+                        } else {
+                            containerWidth = $scope.size.clientWidth - containerLeftWidth - 20;
                         }
                     }
+                    return { "width": containerWidth + "px" }
                 }
 
                 initLibraryItems();
