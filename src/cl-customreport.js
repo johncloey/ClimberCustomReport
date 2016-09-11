@@ -59,27 +59,29 @@ define([
 
             getExportRawDataOptions: function(a, c, e) {
                 c.getVisualization().then(function(visualization) {
-                    if ($('#cl-customreport-container').scope().expanded) {
-                        a.addItem({
-                            translation: "Collapse table",
-                            tid: "Collapse",
-                            icon: "icon-minimize",
-                            select: function() {
-                                console.log($('#cl-customreport-container').scope());
-                                $('#cl-customreport-container').scope().collapse();
-                            }
-                        });
+                    if (!$('#cl-customreport-container').scope().collapsed) {
+                        if ($('#cl-customreport-container').scope().expanded) {
+                            a.addItem({
+                                translation: "Show fields/sortbar",
+                                tid: "Collapse",
+                                icon: "icon-minimize",
+                                select: function() {
+                                    console.log($('#cl-customreport-container').scope());
+                                    $('#cl-customreport-container').scope().collapse();
+                                }
+                            });
 
-                    } else {
-                        a.addItem({
-                            translation: "Expand table",
-                            tid: "Expand",
-                            icon: "icon-maximize",
-                            select: function() {
-                                console.log($('#cl-customreport-container').scope());
-                                $('#cl-customreport-container').scope().expand();
-                            }
-                        });
+                        } else {
+                            a.addItem({
+                                translation: "Hide fields/sortbar",
+                                tid: "Expand",
+                                icon: "icon-maximize",
+                                select: function() {
+                                    console.log($('#cl-customreport-container').scope());
+                                    $('#cl-customreport-container').scope().expand();
+                                }
+                            });
+                        } 
                     }
                     return a.addItem({
                         translation: "contextMenu.export",
