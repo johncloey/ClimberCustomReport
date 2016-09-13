@@ -26,59 +26,51 @@ define([
             },
 
             resize: function($element, layout) {
-                if ($element.context.clientHeight < 300) {
-                    if (!this.$scope.collapsed) {
-                        this.$scope.collapsed = true;
-                        this.$scope.updateTable();
-                    }                    
-                } else {
-                     if (this.$scope.collapsed) {
-                        this.$scope.collapsed = false;
-                        this.$scope.updateTable();
-                    } 
-                }
+
                 this.$scope.size.clientHeight = $element.context.clientHeight;
                 this.$scope.size.clientWidth = $element.context.clientWidth;
+                
+                this.$scope.handleResize($element,layout.props.allowCollapse);
+
             },
 
             paint: function($element, layout) {
-                if ($element.context.clientHeight < 300) {
-                    if (!this.$scope.collapsed) {
-                        this.$scope.collapsed = true;
-                        this.$scope.updateTable();
-                    }                    
-                } else {
-                     if (this.$scope.collapsed) {
-                        this.$scope.collapsed = false;
-                        this.$scope.updateTable();
-                    } 
-                }
+
                 this.$scope.size.clientHeight = $element.context.clientHeight;
                 this.$scope.size.clientWidth = $element.context.clientWidth;
+                
+                if (this.$scope.firstPaint) {
+                    this.$scope.firstPaint = false;
+                    console.log('firstPaint', layout);
+                    this.$scope.fieldsAndSortbarVisible = layout.props.showFieldsAndSortbar;                    
+                }
+                this.$scope.handleResize($element,layout.props.allowCollapse); 
+                
+               
             },
 
             getExportRawDataOptions: function(a, c, e) {
                 c.getVisualization().then(function(visualization) {
                     if (!$('#cl-customreport-container').scope().collapsed) {
-                        if ($('#cl-customreport-container').scope().expanded) {
-                            a.addItem({
-                                translation: "Show fields/sortbar",
-                                tid: "Collapse",
-                                icon: "icon-minimize",
-                                select: function() {
-                                    console.log($('#cl-customreport-container').scope());
-                                    $('#cl-customreport-container').scope().collapse();
-                                }
-                            });
-
-                        } else {
+                        if ($('#cl-customreport-container').scope().fieldsAndSortbarVisible) {                            
                             a.addItem({
                                 translation: "Hide fields/sortbar",
                                 tid: "Expand",
                                 icon: "icon-maximize",
                                 select: function() {
                                     console.log($('#cl-customreport-container').scope());
-                                    $('#cl-customreport-container').scope().expand();
+                                    $('#cl-customreport-container').scope().hideFieldAndSortbar();
+                                }
+                            });
+
+                        } else {
+                            a.addItem({
+                                translation: "Show fields/sortbar",
+                                tid: "Collapse",
+                                icon: "icon-minimize",
+                                select: function() {
+                                    console.log($('#cl-customreport-container').scope());
+                                    $('#cl-customreport-container').scope().showFieldAndSortbar();
                                 }
                             });
                         } 
@@ -103,8 +95,12 @@ define([
                     clientWidth: -1
                 }
 
-                $scope.expanded = false;
+                $scope.firstPaint = true;
+                $scope.fieldsAndSortbarVisible = true;
                 $scope.collapsed = false;
+                $scope.minWidthCollapsed = 200;
+                $scope.minHeightCollapsed = 200;
+
 
                 $scope.data = {
                     tag: null,
@@ -126,6 +122,11 @@ define([
                     interColumnSortOrder: [],
                 };
 
+                var dragoverHandler = function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                };
+
                 $scope.reportConfig = {
                     group: {
                         name: "report",
@@ -133,6 +134,13 @@ define([
                     },
                     animation: 150,
                     ghostClass: "ghost",
+                    onStart: function( /** ngSortEvent */ evt) {
+                        $('body').on('dragover', '.qv-panel-wrap', dragoverHandler);
+                    },
+                    onEnd: function( /** ngSortEvent */ evt) {
+                        $('body').off('dragover', '.qv-panel-wrap', dragoverHandler);
+                       // $('#customreporttable').removeClass('prevent-pointers');
+                    },
                     onSort: function( /** ngSortEvent */ evt) {
                         $scope.report.state.splice(evt.newIndex, 0, $scope.report.state.splice(evt.oldIndex, 1)[0]);
                         $scope.updateTable();
@@ -142,6 +150,22 @@ define([
                 var app = qlik.currApp();
 
                 var localStorageId = $scope.$parent.layout.qExtendsId ? $scope.$parent.layout.qExtendsId : $scope.$parent.layout.qInfo.qId;
+
+                $scope.handleResize = function($element, allowCollapse) {
+
+                    if ($element.context.clientHeight < $scope.minHeightCollapsed || $element.context.clientWidth < $scope.minWidthCollapsed) {
+                        if (!$scope.collapsed && allowCollapse) {
+                            $scope.collapsed = true;
+                            $scope.updateTable();
+                        }                    
+                    } else {
+                         if ($scope.collapsed) {
+                            $scope.collapsed = false;
+                            $scope.updateTable();
+                        } 
+                    }                    
+                }
+
 
                 $scope.getClass = function() {
                     return stateUtil.isInAnalysisMode() ? "" : "no-interactions";
@@ -523,13 +547,13 @@ define([
                     }
                     $scope.updateTable();
                 }
-                $scope.expand = function() { 
-                    $scope.expanded = true;
+                $scope.hideFieldAndSortbar = function() { 
+                    $scope.fieldsAndSortbarVisible = false;
                     $scope.updateTable();
                 }
 
-                $scope.collapse = function() { 
-                    $scope.expanded = false;
+                $scope.showFieldAndSortbar = function() { 
+                    $scope.fieldsAndSortbarVisible = true;
                     $scope.updateTable();
                 }
                 $scope.exportData = function(string) {
@@ -620,7 +644,16 @@ define([
                     $scope.data.tagColor = newStyle;
                 });
 
-                 $scope.$watchCollection('layout.props.displayText', function(newText) {
+                $scope.$watchCollection('layout.props.collapseMinWidth', function(newWidth) {
+                    $scope.minWidthCollapsed = newWidth;
+                });
+
+                 $scope.$watchCollection('layout.props.collapseMinHeight', function(newHeight) {
+                    $scope.minHeightCollapsed = newHeight;
+                });
+
+
+                $scope.$watchCollection('layout.props.displayText', function(newText) {
                     $scope.data.displayText = newText;
                 });
 
@@ -661,7 +694,7 @@ define([
                     $('#reportSortable').height();
 
                     var reportSortableHeight = $('#reportSortable').height();
-                    if ($scope.expanded) {
+                    if (!$scope.fieldsAndSortbarVisible) {
                         return { "height": $scope.size.clientHeight + "px" }
                     } else {
                         return { "height": ($scope.size.clientHeight - labelsAndButtons - reportSortableHeight) + "px", "padding-top":"18px" }
@@ -673,7 +706,7 @@ define([
                     if (container == 'left') {
                        containerWidth = containerLeftWidth;
                     } else {
-                        if ($scope.expanded) {
+                        if (!$scope.fieldsAndSortbarVisible) {
                             containerWidth =  $scope.size.clientWidth;
                         } else {
                             containerWidth = $scope.size.clientWidth - containerLeftWidth - 20;

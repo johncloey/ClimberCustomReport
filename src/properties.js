@@ -76,7 +76,6 @@ define( [
 	};
 
 	var tagColor = {
-
 		type: "boolean",
 		component: "switch",
 		label: "Tag color",
@@ -88,8 +87,7 @@ define( [
 			value: false,
 			label: "No colors"
 		}],
-		defaultValue: true
-					
+		defaultValue: true					
 	}
 
 	var sortOrder = {
@@ -107,6 +105,58 @@ define( [
 								label : "Sort by table order"
 							}]
 						
+	}
+
+	var showFieldsAndSortbar = {
+		type: "boolean",
+		component: "switch",
+		label: "Default behavior",
+		ref: "props.showFieldsAndSortbar",
+		options: [{
+			value: true,
+			label: "Show fields/sortbar"
+		}, {
+			value: false,
+			label: "Hide fields/sortbar"
+		}],
+		defaultValue: true					
+	}
+
+	var allowCollapse = {
+		type: "boolean",
+		component: "switch",
+		label: "Allow collapse",
+		ref: "props.allowCollapse",
+		options: [{
+			value: true,
+			label: "Yes"
+		}, {
+			value: false,
+			label: "No"
+		}],
+		defaultValue: false					
+	}
+
+
+
+	var collapseMinWidth = {
+		type: "number",
+		label: "Trigger collapse min width",
+		ref: "props.collapseMinWidth",
+		defaultValue: 200,
+		show: function (data) {
+			return data.props.allowCollapse;
+		}					
+	};
+
+	var collapseMinHeight = {
+		type: "number",
+		label: "Trigger collapse min height",
+		ref: "props.collapseMinHeight",
+		defaultValue: 200,
+		show: function (data) {
+			return data.props.allowCollapse;
+		}					
 	}
 
 	var displayText = {
@@ -138,6 +188,10 @@ define( [
 					//tagSetting: tagSetting,
 					tagColor: tagColor,
 					sortOrder: sortOrder,
+					showFieldsAndSortbar: showFieldsAndSortbar,
+					allowCollapse: allowCollapse,
+					collapseMinWidth: collapseMinWidth,
+					collapseMinHeight: collapseMinHeight,
 					displayText: displayText
 				}
 			},

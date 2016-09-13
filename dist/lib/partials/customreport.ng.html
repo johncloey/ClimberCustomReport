@@ -3,7 +3,7 @@
 	<div ng-show="collapsed"><div class="containerlabel"><i style="padding-right: 10px; padding-left: 10px" class="icon-table"></i>{{data.displayText}} </div>
                 </div>
     <div ng-hide="collapsed">
-        <div ng-hide="expanded" class='container_left' ng-style="getContainerWidth('left')">
+        <div ng-show="fieldsAndSortbarVisible" class='container_left' ng-style="getContainerWidth('left')">
     		<div class="bootstrap" style="margin-right: 12px;"">
     			<!--lui-button  ng-click="exportData('exportToExcel')" title='Export to Excel' ><i class="icon-toolbar-sharelist"> Excel</i></lui-button-->
     			
@@ -35,8 +35,8 @@
     		</div>
     	</div>
     	<div class='container_right' ng-style="getContainerWidth('right')">
-    		<div ng-hide="expanded" class="bootstrap">
-    			<div class="containerlabel">{{data.displayText}} <i style="padding-right: 10px" title="Clear All" class="icon-toolbar-clearselections" ng-click="clearAll()" ng-class="report.state.length == 0 ? 'disabled': ''"></i><i title="Hide fields/sortbar" class="icon-maximize" ng-click="expand()"></i></div>
+    		<div ng-show="fieldsAndSortbarVisible" class="bootstrap">
+    			<div class="containerlabel">{{data.displayText}} <i style="padding-right: 10px" title="Clear All" class="icon-toolbar-clearselections" ng-click="clearAll()" ng-class="report.state.length == 0 ? 'disabled': ''"></i><i title="Hide fields/sortbar" class="icon-maximize" ng-click="hideFieldAndSortbar()"></i></div>
     			<ul id='reportSortable' ng-class="{plain:!data.tagColor}" class="sortablelist" >
     				<li ng-class="item.type=='dimension' ? 'label-dimension' : 'label-measure'" title="{{item.title +'\n' + item.description}}" ng-repeat="item in report.state">
     					<div>{{item.title}}</div><span class="icon-vtabs-delete" ng-click="removeItem(item)"></span>

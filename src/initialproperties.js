@@ -2,6 +2,15 @@
 define( [], function () {
     'use strict';
     return {
+        props: {
+            allowCollapse : false,
+            showFieldsAndSortbar: true,
+            collapseMinWidth: 200,
+            collapseMinHeight: 200,
+            displayText: "Custom Report",
+            tagColor: true,
+            sortOrder: "SortByA",
+        }
         /*
         qHyperCubeDef: {
             qDimensions: [],
