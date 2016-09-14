@@ -4,7 +4,6 @@ define( [], function () {
     return {
         props: {
             allowCollapse : false,
-            showFieldsAndSortbar: true,
             collapseMinWidth: 200,
             collapseMinHeight: 200,
             displayText: "Custom Report",

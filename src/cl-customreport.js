@@ -39,11 +39,6 @@ define([
                 this.$scope.size.clientHeight = $element.context.clientHeight;
                 this.$scope.size.clientWidth = $element.context.clientWidth;
                 
-                if (this.$scope.firstPaint) {
-                    this.$scope.firstPaint = false;
-                    console.log('firstPaint', layout);
-                    this.$scope.fieldsAndSortbarVisible = layout.props.showFieldsAndSortbar;                    
-                }
                 this.$scope.handleResize($element,layout.props.allowCollapse); 
                 
                
@@ -75,6 +70,144 @@ define([
                             });
                         } 
                     }
+                    var count = _.countBy($('#cl-customreport-container').scope().report.state, 'type');
+                    
+                    var unselectedDimensionCount = count.dimension ? $('#cl-customreport-container').scope().report.dimensions.length - count.dimension 
+                                                                   : $('#cl-customreport-container').scope().report.dimensions.length;
+                    var unselectedMeasuresCount = count.measure ? $('#cl-customreport-container').scope().report.measures.length - count.measure 
+                                                                   : $('#cl-customreport-container').scope().report.measures.length;
+                    //Add fields
+                    if (unselectedDimensionCount || unselectedMeasuresCount) {
+
+                        var submenuAdd = a.addItem({
+                            translation: "Add fields",
+                            tid: "add-submenu",
+                            icon: "icon-add"
+                        });
+                        if (unselectedDimensionCount) {
+
+                            var submenuAddDimension = submenuAdd.addItem({
+                                translation: "Add dimension",
+                                tid: "add-dimension-submenu",
+                                icon: "icon-add"
+                            });
+                            
+                             _.each($('#cl-customreport-container').scope().report.dimensions, function(item){
+                                console.log(item);
+                                if (!item.selected) {
+                                    submenuAddDimension.addItem({
+                                        translation: item.title,
+                                        tid: "dimension",
+                                        select: function() {
+                                            $('#cl-customreport-container').scope().selectItem(item);
+                                        }
+                                    });
+                                }
+                             });
+                         }
+
+                         if (unselectedMeasuresCount) {
+
+                            var submenuAddMeasure = submenuAdd.addItem({
+                                translation: "Add measure",
+                                tid: "add-measure-submenu",
+                                icon: "icon-add"
+                            });
+                            
+                             _.each($('#cl-customreport-container').scope().report.measures, function(item){
+                                console.log(item);
+                                if (!item.selected) {
+                                    submenuAddMeasure.addItem({
+                                        translation: item.title,
+                                        tid: "switch",
+                                        select: function() {
+                                            $('#cl-customreport-container').scope().selectItem(item);
+                                        }
+                                    });
+                                }
+                             });
+                         }
+
+                     }
+                    
+                    //Remove fields
+                    console.log('count',count);
+                    if (count.dimension || count.measure) {
+
+                        var submenuRemove = a.addItem({
+                            translation: "Remove fields",
+                            tid: "remove-submenu",
+                            icon: "icon-remove"
+                        });
+                        if (count.dimension) {
+
+                            var submenuRemoveDimension = submenuRemove.addItem({
+                                translation: "Remove dimension",
+                                tid: "remove-dimension-submenu",
+                                icon: "icon-remove"
+                            });
+                            
+                             _.each($('#cl-customreport-container').scope().report.dimensions, function(item){
+                                console.log(item);
+                                if (item.selected) {
+                                    submenuRemoveDimension.addItem({
+                                        translation: item.title,
+                                        tid: "dimension",
+                                        select: function() {
+                                            $('#cl-customreport-container').scope().removeItem(item);
+                                        }
+                                    });
+                                }
+                             });
+                         }
+
+                         if (count.measure) {
+
+                            var submenuRemoveMeasure = submenuRemove.addItem({
+                                translation: "Remove measure",
+                                tid: "remove-measure-submenu",
+                                icon: "icon-remove"
+                            });
+                            
+                             _.each($('#cl-customreport-container').scope().report.measures, function(item){
+                                console.log(item);
+                                if (item.selected) {
+                                    submenuRemoveMeasure.addItem({
+                                        translation: item.title,
+                                        tid: "switch",
+                                        select: function() {
+                                            $('#cl-customreport-container').scope().removeItem(item);
+                                        }
+                                    });
+                                }
+                             });
+                         }
+
+                     }
+                                                           
+
+
+                    var submenuSwitchTable = a.addItem({
+                            translation: "Switch table",
+                            tid: "switch-submenu",
+                            icon: "icon-cogwheel"
+                    });
+                     _.each($('#cl-customreport-container').scope().data.masterObjectList, function(item){
+                        console.log(item);
+                        if (item.qInfo.qId !=  $('#cl-customreport-container').scope().data.activeTable.qInfo.qId) {
+                            submenuSwitchTable.addItem({
+                                translation: item.qMeta.title,
+                                tid: "switch",
+                                icon: "icon-table",
+                                select: function() {
+                                    $('#cl-customreport-container').scope().data.activeTable = item;
+                                    $('#cl-customreport-container').scope().changeTable();
+                                }
+                            });
+                        }
+                     });                   
+
+
                     return a.addItem({
                         translation: "contextMenu.export",
                         tid: "export",
@@ -86,6 +219,9 @@ define([
                     }), void e.resolve();
                 });
             },
+
+              
+
             template: ngTemplate,
             
             controller: ['$scope', function($scope) {
@@ -95,7 +231,6 @@ define([
                     clientWidth: -1
                 }
 
-                $scope.firstPaint = true;
                 $scope.fieldsAndSortbarVisible = true;
                 $scope.collapsed = false;
                 $scope.minWidthCollapsed = 200;
@@ -139,7 +274,6 @@ define([
                     },
                     onEnd: function( /** ngSortEvent */ evt) {
                         $('body').off('dragover', '.qv-panel-wrap', dragoverHandler);
-                       // $('#customreporttable').removeClass('prevent-pointers');
                     },
                     onSort: function( /** ngSortEvent */ evt) {
                         $scope.report.state.splice(evt.newIndex, 0, $scope.report.state.splice(evt.oldIndex, 1)[0]);
@@ -547,6 +681,7 @@ define([
                     }
                     $scope.updateTable();
                 }
+
                 $scope.hideFieldAndSortbar = function() { 
                     $scope.fieldsAndSortbarVisible = false;
                     $scope.updateTable();
@@ -609,6 +744,8 @@ define([
                             qInterColumnSortOrder: $scope.report.interColumnSortOrder
                         }
                         localStorageToken.activeTableId = state.qId;
+                        localStorageToken.fieldsAndSortbarVisible = $scope.fieldsAndSortbarVisible;
+                        
                         localStorageToken.states[state.qId] = state
                         
                         $scope.report.interColumnSortOrder = [];
@@ -624,6 +761,7 @@ define([
                         console.log('deserialized state:', localStorageToken);
                         state = localStorageToken.states[localStorageToken.activeTableId] 
                         $scope.report.interColumnSortOrder = state.qInterColumnSortOrder ? state.qInterColumnSortOrder : [];
+                        $scope.fieldsAndSortbarVisible = localStorageToken.fieldsAndSortbarVisible;
                         $scope.data.activeTable = _.find($scope.data.masterObjectList, function(item) {
                             return item.qInfo.qId == state.qId;
                         });

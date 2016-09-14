@@ -107,20 +107,6 @@ define( [
 						
 	}
 
-	var showFieldsAndSortbar = {
-		type: "boolean",
-		component: "switch",
-		label: "Default behavior",
-		ref: "props.showFieldsAndSortbar",
-		options: [{
-			value: true,
-			label: "Show fields/sortbar"
-		}, {
-			value: false,
-			label: "Hide fields/sortbar"
-		}],
-		defaultValue: true					
-	}
 
 	var allowCollapse = {
 		type: "boolean",
@@ -188,7 +174,6 @@ define( [
 					//tagSetting: tagSetting,
 					tagColor: tagColor,
 					sortOrder: sortOrder,
-					showFieldsAndSortbar: showFieldsAndSortbar,
 					allowCollapse: allowCollapse,
 					collapseMinWidth: collapseMinWidth,
 					collapseMinHeight: collapseMinHeight,
