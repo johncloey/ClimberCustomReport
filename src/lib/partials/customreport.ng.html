@@ -8,7 +8,7 @@
     			<!--lui-button  ng-click="exportData('exportToExcel')" title='Export to Excel' ><i class="icon-toolbar-sharelist"> Excel</i></lui-button-->
     			
                 <div class="form-group">
-    			    <div class="containerlabel">Select master object: </div>
+    			    <div class="containerlabel" q-translation="library.Visualizations"></div>
                     
                 	<form name="myForm">
     					<!--label class="containerlabel" for="repeatSelect">Select master object: </label-->
@@ -20,13 +20,13 @@
     				</form>
     			</div>
     			
-    				<div class="containerlabel">Dimensions</div>
+    				<div class="containerlabel" q-translation="Common.Dimensions"></div>
     				<ul id='dimensionSortable' class="lui-list dimension-list" ng-style="getListMaxHeight('dimension')">
     					<li qv-swipe="swipe($event)" ng-class="dimension.handle" class="lui-list__item" data-id={{dimension.dataId}} ng-click="selectItem(dimension)" title="{{dimension.title +'\n' + dimension.description}}"  ng-repeat="dimension in report.dimensions">
     						<div class="lui-list__text">{{dimension.title}}</div><div class="icon-tick lui-list-icon" ng-if="dimension.selected"></div>
     					</li>
     				</ul>
-    			<div class="containerlabel">Measures</div>
+    			<div class="containerlabel" q-translation="Common.Measures"></div>
     			<ul id='measureSortable' class="lui-list measure-list" ng-style="getListMaxHeight('measure')">
     				<li class="lui-list__item" ng-click="selectItem(measure)" title="{{measure.title +'\n' + measure.description}}"  ng-repeat="measure in report.measures">
     					<div class="lui-list__text">{{measure.title}}</div><div class="lui-icon--tick lui-icon" ng-if="measure.selected"></div>

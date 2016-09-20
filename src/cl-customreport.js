@@ -270,9 +270,11 @@ define([
                     animation: 150,
                     ghostClass: "ghost",
                     onStart: function( /** ngSortEvent */ evt) {
+                        $('body').on('dragstart', '.qv-panel-wrap', dragoverHandler);
                         $('body').on('dragover', '.qv-panel-wrap', dragoverHandler);
                     },
                     onEnd: function( /** ngSortEvent */ evt) {
+                        $('body').off('dragstart', '.qv-panel-wrap', dragoverHandler);
                         $('body').off('dragover', '.qv-panel-wrap', dragoverHandler);
                     },
                     onSort: function( /** ngSortEvent */ evt) {
@@ -597,6 +599,11 @@ define([
                                     })
                                 }
                                 app.getObject($scope.report.tableID).then(function(visual) {
+                                    visual.getProperties().then(function(properties) {
+                                        console.log('visual props',properties);
+                                    
+                                    });
+
                                     visual.clearSoftPatches();
                                     var patches = [{
                                             "qOp": "replace",
@@ -606,7 +613,8 @@ define([
                                             "qOp": "replace",
                                             "qPath": "qHyperCubeDef/qMeasures",
                                             "qValue": JSON.stringify(measures)
-                                        }, {
+                                        },
+                                        {
                                             "qOp": "replace",
                                             "qPath": "qHyperCubeDef/columnOrder",
                                             "qValue": JSON.stringify(columnOrder)
