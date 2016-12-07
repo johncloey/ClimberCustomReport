@@ -56,6 +56,7 @@ I cannot guarantee that I will merge all PRs.
 Due to a bug in Qlik Sense (versions prior to 3.1. SR2) using exports with a virtual proxy requires a workaround. Export the table as ususal. In the URL for the exported object just add the virtual proxy prefix after the server name. (The object is actually exported correctly but we can not get the correct path from Qlik Sense.)  
 https://qlik.sense.server.com/tempcontent/c4ef2a92-2....  
 https://qlik.sense.server.com/VIRTUAL_PROXY_PREFIX/tempcontent/c4ef2a92-2....  
+Allow anonymous user need to be set on the Central Proxy.  
 
 ## Author
 
