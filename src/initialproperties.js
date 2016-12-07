@@ -3,7 +3,7 @@ define( [], function () {
     'use strict';
     return {
         props: {
-            allowCollapse : false,
+            allowCollapse : true,
             collapseMinWidth: 200,
             collapseMinHeight: 200,
             displayText: "Custom Report",

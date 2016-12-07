@@ -108,6 +108,15 @@ ul.report-list {
    
 }
 
+.dimension-list div,
+.measure-list div
+ {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+   
+}
+
 .sortablelist span {
   font-size: 11px;
   vertical-align: text-top;
@@ -155,10 +164,10 @@ ul.report-list {
   color: @fontColor;
 }
 
-i.icon-toolbar-clearselections {
+i {
   padding-left: 10px;
 }
 
-i.icon-toolbar-clearselections.disabled {
+i.disabled {
   color: @borderGrey;
 }

@@ -21,8 +21,10 @@ Works only with Qlik Sense 3.0 and up!!
 ![Alt text](/screenshots/DragAndDropToSort.png?raw=true "Drag and drop to sort")
 4. The table used is a standard Qlik Sense table so all standard features such as export and sorting are available. 
 ![Alt text](/screenshots/StandardTableExport.PNG?raw=true "Standard table export and sort")
-5. You can use tags in the master items to show only relevant master item tables. Choose your tag in the settings. (In the picture we used the tag "Custom report" but you can of course choose any tag you want.) 
-
+5. Using a minimized version of the object you can put a custom report on any sheet along with the rest of the visualizations. Click arrows to expand to full screen!
+![Alt text](/screenshots/Minimized.png?raw=true "Minimized")
+6. Right-click menu allows you to make changes even with fields/sortbar hidden
+![Alt text](/screenshots/RightClickMenu.PNG?raw=true "Right-Click Menu")
 
 
 ## Installation
@@ -49,6 +51,11 @@ Contributing to this project is welcome. The process to do so is outlined below:
 3. Create a pull request (PR)
 
 I cannot guarantee that I will merge all PRs.
+
+## Know Issues
+Due to a bug in Qlik Sense (versions prior to 3.1. SR2) using exports with a virtual proxy requires a workaround. Export the table as ususal. In the URL for the exported object just add the virtual proxy prefix after the server name. (The object is actually exported correctly but we can not get the correct path from Qlik Sense.)  
+https://qlik.sense.server.com/tempcontent/c4ef2a92-2....  
+https://qlik.sense.server.com/VIRTUAL_PROXY_PREFIX/tempcontent/c4ef2a92-2....  
 
 ## Author
 
