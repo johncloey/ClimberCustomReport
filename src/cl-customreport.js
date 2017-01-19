@@ -29,20 +29,14 @@ define([
             },
 
             resize: function($element, layout) {
-
-                this.$scope.size.clientHeight = $element.context.clientHeight;
-                this.$scope.size.clientWidth = $element.context.clientWidth;
-                
-                this.$scope.handleResize($element,layout.props.allowCollapse);
-
+                this.paint($element, layout);
             },
 
             paint: function($element, layout) {
                 console.log('layout',layout);
 
-                this.$scope.size.clientHeight = $element.context.clientHeight;
-                this.$scope.size.clientWidth = $element.context.clientWidth;
-                
+                this.$scope.size.clientHeight = $element.height();
+                this.$scope.size.clientWidth = $element.width();
                 this.$scope.handleResize($element,layout.props.allowCollapse); 
                 
                
@@ -294,7 +288,7 @@ define([
 
                 $scope.handleResize = function($element, allowCollapse) {
 
-                    if ($element.context.clientHeight < $scope.minHeightCollapsed || $element.context.clientWidth < $scope.minWidthCollapsed) {
+                    if ($element.height() < $scope.minHeightCollapsed || $element.width() < $scope.minWidthCollapsed) {
                         if (!$scope.collapsed && allowCollapse) {
                             $scope.collapsed = true;
                             $scope.updateTable();
