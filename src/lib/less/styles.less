@@ -2,25 +2,6 @@
   pointer-events: none;
 }
 
-ul.sortablelist{
-  margin: 5px;
-  padding: 5px;
-  min-height: 40px;
-  list-style: none;
-  border: 1px solid @borderGrey;
-  border-radius: 3px;
-  border-color: @borderGrey;
-  
-}
-
-ul.dimension-list {
-  
-  border: 1px solid @borderGrey;
-  border-radius: 3px;
-  min-height: 38px;
-  overflow: auto;
-
-}
 
 .container_left {
   float: left; 
@@ -35,33 +16,43 @@ ul.dimension-list {
 .container_crt {
   height: 500px;
 }
-.dimension-list li {
+
+ul.dimension-list,
+ul.measure-list {  
+  border: 1px solid @borderGrey;
+  border-radius: 3px;
+  min-height: 38px;
+  overflow: auto;
+}
+
+.dimension-list li,
+.measure-list li {
   box-sizing: content-box;
   -webkit-box-sizing:content-box;
   -moz-box-sizing:content-box;
   
 }
 
-.dimension-list li:last-child {
-  border-bottom: 0px solid @borderGrey;
-}
-
-ul.measure-list {
-  border: 1px solid @borderGrey;
-  border-radius: 3px;
-  min-height: 38px;
-  overflow: auto;
-}
-.measure-list li {
-  box-sizing: content-box;
-  -webkit-box-sizing:content-box;
-  -moz-box-sizing:content-box;
-}
-
+.dimension-list li:last-child,
 .measure-list li:last-child {
   border-bottom: 0px solid @borderGrey;
 }
 
+.dimension-list li.selected,
+.measure-list li.selected {  
+      background-color: @selectedColor;
+    color: #FFFFFF;
+    border-bottom: 1px solid #BAEBBA;
+}
+
+.dimension-list div,
+.measure-list div
+ {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+   
+}
 
 select {
   padding-left: 10px;
@@ -83,6 +74,18 @@ ul.report-list {
   overflow: visible; 
  // padding-top: 18px;
 }
+
+ul.sortablelist{
+  margin: 5px;
+  padding: 5px;
+  min-height: 40px;
+  list-style: none;
+  border: 1px solid @borderGrey;
+  border-radius: 3px;
+  border-color: @borderGrey;
+  
+}
+
 .sortablelist li {
   cursor: pointer;
   display: inline-block;
@@ -108,14 +111,6 @@ ul.report-list {
    
 }
 
-.dimension-list div,
-.measure-list div
- {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-   
-}
 
 .sortablelist span {
   font-size: 11px;

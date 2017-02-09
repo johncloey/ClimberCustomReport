@@ -22,13 +22,13 @@
     			
     				<div class="containerlabel" q-translation="Common.Dimensions"></div>
     				<ul id="dimensionSortable" class="lui-list dimension-list" ng-style="getListMaxHeight('dimension')">
-    					<li qv-swipe="swipe($event)" ng-class="dimension.handle" class="lui-list__item" ng-click="selectItem(dimension)" title="{{dimension.title +'\n' + dimension.description}}"  ng-repeat="dimension in report.dimensions" data-id={{dimension.dataId}}>
+    					<li qv-swipe="swipe($event)" ng-class="{selected: dimension.selected}" class="lui-list__item" ng-click="selectItem(dimension)" title="{{dimension.title +'\n' + dimension.description}}"  ng-repeat="dimension in report.dimensions" data-id={{dimension.dataId}}>
     						<div class="lui-list__text">{{dimension.title}}</div><div class="icon-tick lui-list-icon" ng-if="dimension.selected"></div>
     					</li>
     				</ul>
     			<div class="containerlabel" q-translation="Common.Measures"></div>
     			<ul id="measureSortable" class="lui-list measure-list" ng-style="getListMaxHeight('measure')">
-    				<li class="lui-list__item" ng-click="selectItem(measure)" title="{{measure.title +'\n' + measure.description}}"  ng-repeat="measure in report.measures">
+    				<li class="lui-list__item" ng-class="{selected: measure.selected}" ng-click="selectItem(measure)" title="{{measure.title +'\n' + measure.description}}"  ng-repeat="measure in report.measures">
     					<div class="lui-list__text">{{measure.title}}</div><div class="lui-icon--tick lui-icon" ng-if="measure.selected"></div>
     				</li>
     			</ul>
