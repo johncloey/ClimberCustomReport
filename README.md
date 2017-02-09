@@ -12,32 +12,19 @@ Works only with Qlik Sense 3.0 and up!!
 
 
 ## Screenshots
-1. Create Master Item Table
-
-![Alt text](/screenshots/CreateMasterTable.PNG?raw=true "Create Table")
-
-![Alt text](/screenshots/CreateMasterTable2.PNG?raw=true "Add to master items")
-
-2. Select master item in the drop-down and choose what to show in the dimensions and measures. The custom table will be updated accordingly. Only dimensions and measures that are used will be calculated by Qlik Sense.https://community.qlik.com/blogs/qlikviewdesignblog/2014/01/31/customizable-straight-table
-
-![Alt text](/screenshots/CustomReport.PNG?raw=true "Custom Report")
-
+1. Create Master Item Table  
+![Alt text](/screenshots/CreateMasterTable.PNG?raw=true "Create Table")  
+![Alt text](/screenshots/CreateMasterTable2.PNG?raw=true "Add to master items")  
+2. Select master item in the drop-down and choose what to show in the dimensions and measures. The custom table will be updated accordingly. Only dimensions and measures that are used will be calculated by Qlik Sense. https://community.qlik.com/blogs/qlikviewdesignblog/2014/01/31/customizable-straight-table  
+![Alt text](/screenshots/CustomReport.PNG?raw=true "Custom Report")  
 3. Sorting of columns by drag and drop. 
-
-![Alt text](/screenshots/DragAndDropToSort.png?raw=true "Drag and drop to sort")
-
+![Alt text](/screenshots/DragAndDropToSort.png?raw=true "Drag and drop to sort")  
 4. The table used is a standard Qlik Sense table so all standard features such as export and sorting are available. 
-
-![Alt text](/screenshots/StandardTableExport.PNG?raw=true "Standard table export and sort")
-
-5. Using a minimized version of the object you can put a custom report on any sheet along with the rest of the visualizations. Click arrows to expand to full screen!
-
-![Alt text](/screenshots/Minimized.png?raw=true "Minimized")
-
-6. Right-click menu allows you to make changes even with fields/sortbar hidden
-
-![Alt text](/screenshots/RightClickMenu.PNG?raw=true "Right-Click Menu")
-
+![Alt text](/screenshots/StandardTableExport.PNG?raw=true "Standard table export and sort")  
+5. Using a minimized version of the object you can put a custom report on any sheet along with the rest of the visualizations. Click arrows to expand to full screen!  
+![Alt text](/screenshots/Minimized.png?raw=true "Minimized")  
+6. Right-click menu allows you to make changes even with fields/sortbar hidden  
+![Alt text](/screenshots/RightClickMenu.PNG?raw=true "Right-Click Menu")  
 
 ## Installation
 
