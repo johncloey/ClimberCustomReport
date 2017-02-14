@@ -1,21 +1,26 @@
 define([
-        'jquery',
-        'underscore',
-        'qlik',
-        'ng!$q',
-        'ng!$http',
-        './properties',
-        './initialproperties',
-        'client.utils/state',
-        './lib/js/extensionUtils',
-        './lib/external/Sortable/Sortable',
-        'css!./lib/css/style.css',
-        'text!./lib/partials/customreport.ng.html',
-    ],
-    function($, _, qlik, $q, $http, props, initProps, stateUtil, extensionUtils, sortable, cssContent, ngTemplate) {
+    'jquery',
+    'underscore',
+    'qlik',
+    'ng!$q',
+    'ng!$http',
+    './properties',
+    './initialproperties',
+    'client.utils/state',
+    './lib/js/extensionUtils',
+    './lib/external/Sortable/Sortable',
+    'css!./lib/css/style.css',
+    'text!./lib/partials/customreport.ng.html',
+    './lib/js/perfect-scrollbar.min',
+    './lib/js/perfect-scrollbar.jquery.min',
+    'text!./lib/css/perfect-scrollbar.min.css',
+    './lib/js/directives/onLastRepeatDirective',
+],
+    function ($, _, qlik, $q, $http, props, initProps, stateUtil, extensionUtils, sortable, cssContent, ngTemplate, ps, psJqeuery, PScss) {
         'use strict';
 
         extensionUtils.addStyleToHeader(cssContent);
+        extensionUtils.addStyleToHeader(PScss);
 
         return {
 
@@ -25,29 +30,32 @@ define([
                 canTakeSnapshot: false
             },
 
-            resize: function($element, layout) {
+            resize: function ($element, layout) {
                 this.paint($element, layout);
             },
 
-            paint: function($element, layout) {
-                console.log('layout',layout);
+            paint: function ($element, layout) {
+                console.log('layout', layout);
 
                 this.$scope.size.clientHeight = $element.height();
                 this.$scope.size.clientWidth = $element.width();
-                this.$scope.handleResize($element,layout.props.allowCollapse); 
-                
-               
+                this.$scope.qId = layout.qInfo.qId;
+
+                this.$scope.handleResize($element, layout.props.allowCollapse);
+                $element.find('#dimensionSortable').perfectScrollbar();
+                //$element.find('.dimension-scroller').perfectScrollbar();
+
             },
 
-            getExportRawDataOptions: function(a, c, e) {
-                c.getVisualization().then(function(visualization) {
+            getExportRawDataOptions: function (a, c, e) {
+                c.getVisualization().then(function (visualization) {
                     if (!$('#cl-customreport-container').scope().collapsed) {
-                        if ($('#cl-customreport-container').scope().fieldsAndSortbarVisible) {                            
+                        if ($('#cl-customreport-container').scope().fieldsAndSortbarVisible) {
                             a.addItem({
                                 translation: "Hide fields/sortbar",
                                 tid: "Expand",
                                 icon: "icon-maximize",
-                                select: function() {
+                                select: function () {
                                     console.log($('#cl-customreport-container').scope());
                                     $('#cl-customreport-container').scope().hideFieldAndSortbar();
                                 }
@@ -58,19 +66,19 @@ define([
                                 translation: "Show fields/sortbar",
                                 tid: "Collapse",
                                 icon: "icon-minimize",
-                                select: function() {
+                                select: function () {
                                     console.log($('#cl-customreport-container').scope());
                                     $('#cl-customreport-container').scope().showFieldAndSortbar();
                                 }
                             });
-                        } 
+                        }
                     }
                     var count = _.countBy($('#cl-customreport-container').scope().report.state, 'type');
-                    
-                    var unselectedDimensionCount = count.dimension ? $('#cl-customreport-container').scope().report.dimensions.length - count.dimension 
-                                                                   : $('#cl-customreport-container').scope().report.dimensions.length;
-                    var unselectedMeasuresCount = count.measure ? $('#cl-customreport-container').scope().report.measures.length - count.measure 
-                                                                   : $('#cl-customreport-container').scope().report.measures.length;
+
+                    var unselectedDimensionCount = count.dimension ? $('#cl-customreport-container').scope().report.dimensions.length - count.dimension
+                        : $('#cl-customreport-container').scope().report.dimensions.length;
+                    var unselectedMeasuresCount = count.measure ? $('#cl-customreport-container').scope().report.measures.length - count.measure
+                        : $('#cl-customreport-container').scope().report.measures.length;
                     //Add fields
                     if (unselectedDimensionCount || unselectedMeasuresCount) {
 
@@ -86,47 +94,47 @@ define([
                                 tid: "add-dimension-submenu",
                                 icon: "icon-add"
                             });
-                            
-                             _.each($('#cl-customreport-container').scope().report.dimensions, function(item){
+
+                            _.each($('#cl-customreport-container').scope().report.dimensions, function (item) {
                                 console.log(item);
                                 if (!item.selected) {
                                     submenuAddDimension.addItem({
                                         translation: item.title,
                                         tid: "dimension",
-                                        select: function() {
+                                        select: function () {
                                             $('#cl-customreport-container').scope().selectItem(item);
                                         }
                                     });
                                 }
-                             });
-                         }
+                            });
+                        }
 
-                         if (unselectedMeasuresCount) {
+                        if (unselectedMeasuresCount) {
 
                             var submenuAddMeasure = submenuAdd.addItem({
                                 translation: "Add measure",
                                 tid: "add-measure-submenu",
                                 icon: "icon-add"
                             });
-                            
-                             _.each($('#cl-customreport-container').scope().report.measures, function(item){
+
+                            _.each($('#cl-customreport-container').scope().report.measures, function (item) {
                                 console.log(item);
                                 if (!item.selected) {
                                     submenuAddMeasure.addItem({
                                         translation: item.title,
                                         tid: "switch",
-                                        select: function() {
+                                        select: function () {
                                             $('#cl-customreport-container').scope().selectItem(item);
                                         }
                                     });
                                 }
-                             });
-                         }
+                            });
+                        }
 
-                     }
-                    
+                    }
+
                     //Remove fields
-                    console.log('count',count);
+                    console.log('count', count);
                     if (count.dimension || count.measure) {
 
                         var submenuRemove = a.addItem({
@@ -141,72 +149,72 @@ define([
                                 tid: "remove-dimension-submenu",
                                 icon: "icon-remove"
                             });
-                            
-                             _.each($('#cl-customreport-container').scope().report.dimensions, function(item){
+
+                            _.each($('#cl-customreport-container').scope().report.dimensions, function (item) {
                                 console.log(item);
                                 if (item.selected) {
                                     submenuRemoveDimension.addItem({
                                         translation: item.title,
                                         tid: "dimension",
-                                        select: function() {
+                                        select: function () {
                                             $('#cl-customreport-container').scope().removeItem(item);
                                         }
                                     });
                                 }
-                             });
-                         }
+                            });
+                        }
 
-                         if (count.measure) {
+                        if (count.measure) {
 
                             var submenuRemoveMeasure = submenuRemove.addItem({
                                 translation: "Remove measure",
                                 tid: "remove-measure-submenu",
                                 icon: "icon-remove"
                             });
-                            
-                             _.each($('#cl-customreport-container').scope().report.measures, function(item){
+
+                            _.each($('#cl-customreport-container').scope().report.measures, function (item) {
                                 console.log(item);
                                 if (item.selected) {
                                     submenuRemoveMeasure.addItem({
                                         translation: item.title,
                                         tid: "switch",
-                                        select: function() {
+                                        select: function () {
                                             $('#cl-customreport-container').scope().removeItem(item);
                                         }
                                     });
                                 }
-                             });
-                         }
+                            });
+                        }
 
-                     }
-                                                           
-                     if ($('#cl-customreport-container').scope().data.masterObjectList.length > 1) {
+                    }
+
+                    if ($('#cl-customreport-container').scope().data.masterObjectList.length > 1) {
                         var submenuSwitchTable = a.addItem({
                             translation: "Switch table",
                             tid: "switch-submenu",
                             icon: "icon-cogwheel"
                         });
-                         _.each($('#cl-customreport-container').scope().data.masterObjectList, function(item){
+                        _.each($('#cl-customreport-container').scope().data.masterObjectList, function (item) {
                             console.log(item);
-                            if (item.qInfo.qId !=  $('#cl-customreport-container').scope().data.activeTable.qInfo.qId) {
+                            if (item.qInfo.qId != $('#cl-customreport-container').scope().data.activeTable.qInfo.qId) {
                                 submenuSwitchTable.addItem({
                                     translation: item.qMeta.title,
                                     tid: "switch",
                                     icon: "icon-table",
-                                    select: function() {
+                                    select: function () {
                                         $('#cl-customreport-container').scope().data.activeTable = item;
                                         $('#cl-customreport-container').scope().changeTable();
                                     }
                                 });
                             }
-                         });     
-                     }
-                    
+                        });
+                    }
+
                     return a.addItem({
                         translation: "contextMenu.export",
                         tid: "export",
                         icon: "icon-toolbar-sharelist",
-                        select: function() {
+                        select: function () {
                             console.log($('#cl-customreport-container').scope());
                             $('#cl-customreport-container').scope().exportData('exportToExcel');
                         }
@@ -214,17 +222,18 @@ define([
                 });
             },
 
-              
+
 
             template: ngTemplate,
-            
-            controller: ['$scope', function($scope) {
+
+            controller: ['$scope', '$element', function ($scope, $element) {
 
                 $scope.size = {
                     clientHeight: -1,
                     clientWidth: -1
                 }
 
+                $scope.qId;
                 $scope.fieldsAndSortbarVisible = true;
                 $scope.collapsed = false;
                 $scope.rainText = false;
@@ -253,7 +262,7 @@ define([
                     interColumnSortOrder: [],
                 };
 
-                var dragoverHandler = function(event) {
+                var dragoverHandler = function (event) {
                     event.preventDefault();
                     event.stopPropagation();
                 };
@@ -265,15 +274,15 @@ define([
                     },
                     animation: 150,
                     ghostClass: "ghost",
-                    onStart: function( /** ngSortEvent */ evt) {
+                    onStart: function ( /** ngSortEvent */ evt) {
                         $('body').on('dragstart', '.qv-panel-wrap', dragoverHandler);
                         $('body').on('dragover', '.qv-panel-wrap', dragoverHandler);
                     },
-                    onEnd: function( /** ngSortEvent */ evt) {
+                    onEnd: function ( /** ngSortEvent */ evt) {
                         $('body').off('dragstart', '.qv-panel-wrap', dragoverHandler);
                         $('body').off('dragover', '.qv-panel-wrap', dragoverHandler);
                     },
-                    onSort: function( /** ngSortEvent */ evt) {
+                    onSort: function ( /** ngSortEvent */ evt) {
                         $scope.report.state.splice(evt.newIndex, 0, $scope.report.state.splice(evt.oldIndex, 1)[0]);
                         $scope.updateTable();
                     },
@@ -283,36 +292,36 @@ define([
 
                 var localStorageId = $scope.$parent.layout.qExtendsId ? $scope.$parent.layout.qExtendsId : $scope.$parent.layout.qInfo.qId;
 
-                $scope.handleResize = function($element, allowCollapse) {
+                $scope.handleResize = function ($element, allowCollapse) {
 
                     if ($element.height() < $scope.minHeightCollapsed || $element.width() < $scope.minWidthCollapsed) {
                         if (!$scope.collapsed && allowCollapse) {
                             $scope.collapsed = true;
                             $scope.updateTable();
-                        }                    
+                        }
                     } else {
-                         if ($scope.collapsed) {
+                        if ($scope.collapsed) {
                             $scope.collapsed = false;
                             $scope.updateTable();
-                        } 
-                    }                    
+                        }
+                    }
                 }
 
 
-                $scope.getClass = function() {
+                $scope.getClass = function () {
                     return stateUtil.isInAnalysisMode() ? "" : "no-interactions";
                 };
-                
+
                 function initMasterItems() {
                     var deferred = $q.defer();
 
-                    app.getAppObjectList('masterobject', function(reply) {
-                        $scope.data.masterObjectList = _.reduce(reply.qAppObjectList.qItems, function(acc, obj) {
+                    app.getAppObjectList('masterobject', function (reply) {
+                        $scope.data.masterObjectList = _.reduce(reply.qAppObjectList.qItems, function (acc, obj) {
                             if (obj.qData.visualization == 'table') {
                                 if ($scope.data.tag == 'All tables') {
                                     acc.push(obj);
                                 } else {
-                                    _.each(obj.qMeta.tags, function(tag) {
+                                    _.each(obj.qMeta.tags, function (tag) {
                                         if (tag == $scope.data.tag) {
                                             acc.push(obj);
                                         }
@@ -327,34 +336,34 @@ define([
                 }
 
                 function initLibraryItems() {
-                    app.getList('MeasureList', function(reply) {
+                    app.getList('MeasureList', function (reply) {
                         $scope.data.masterMeasures = reply.qMeasureList;
                     });
-                    app.getList('DimensionList', function(reply) {
+                    app.getList('DimensionList', function (reply) {
                         $scope.data.masterDimensions = reply.qDimensionList;
                     });
                 }
 
-                $scope.loadActiveTable = function() {
+                $scope.loadActiveTable = function () {
 
                     var deferred = $q.defer();
 
                     $scope.report.state = [];
                     $scope.updateTable();
-                    if( $scope.data.activeTable !== null) {
-                        setTimeout(function() {
-                            app.getObjectProperties($scope.data.activeTable.qInfo.qId).then(function(model) {
+                    if ($scope.data.activeTable !== null) {
+                        setTimeout(function () {
+                            app.getObjectProperties($scope.data.activeTable.qInfo.qId).then(function (model) {
                                 $scope.report.title = model.properties.title;
                                 $scope.report.supressZero = model.properties.qHyperCubeDef.qSuppressZero;
-                                console.log('model',model);
+                                console.log('model', model);
                                 //Dimensions
                                 var dataId = -1;
-                                var dimensions = _.map(model._properties.qHyperCubeDef.qDimensions, function(dimension) {
+                                var dimensions = _.map(model._properties.qHyperCubeDef.qDimensions, function (dimension) {
 
                                     dataId = dataId + 1;
 
                                     if (dimension.qLibraryId) {
-                                        var libraryItem = _.find($scope.data.masterDimensions.qItems, function(item) {
+                                        var libraryItem = _.find($scope.data.masterDimensions.qItems, function (item) {
                                             return item.qInfo.qId == dimension.qLibraryId;
                                         });
                                         var libraryDimension = dimension;
@@ -379,16 +388,16 @@ define([
                                     }
                                 });
 
-                                $scope.report.dimensions = $scope.data.sortOrder == 'SortByA' ? _.sortBy(dimensions, function(item) {
+                                $scope.report.dimensions = $scope.data.sortOrder == 'SortByA' ? _.sortBy(dimensions, function (item) {
                                     return item.title;
                                 }) : dimensions;
 
                                 //Measures
-                                var measures = _.map(model._properties.qHyperCubeDef.qMeasures, function(measure) {
+                                var measures = _.map(model._properties.qHyperCubeDef.qMeasures, function (measure) {
                                     dataId = dataId + 1;
 
                                     if (measure.qLibraryId) {
-                                        var libraryItem = _.find($scope.data.masterMeasures.qItems, function(item) {
+                                        var libraryItem = _.find($scope.data.masterMeasures.qItems, function (item) {
                                             return item.qInfo.qId == measure.qLibraryId;
                                         });
 
@@ -414,7 +423,7 @@ define([
                                         }
                                     }
                                 });
-                                $scope.report.measures = $scope.data.sortOrder == 'SortByA' ? _.sortBy(measures, function(item) {
+                                $scope.report.measures = $scope.data.sortOrder == 'SortByA' ? _.sortBy(measures, function (item) {
                                     return item.title;
                                 }) : measures;
                                 deferred.resolve(true);
@@ -423,11 +432,11 @@ define([
                     } else {
                         deferred.resolve(false);
                     }
-                
+
                     return deferred.promise;
                 }
 
-                $scope.changeTable = function() {
+                $scope.changeTable = function () {
                     var state = {};
                     var localStorageToken = JSON.parse(localStorage.getItem(localStorageId));
                     if (undefined != localStorageToken && undefined != localStorageToken.states) {
@@ -438,31 +447,32 @@ define([
                     }
                     $scope.setReportState(state);
                 }
-                $scope.createTable = function() {
+                $scope.createTable = function () {
                     var deferred = $q.defer();
                     $(".rain").show();
-                    $scope.loadActiveTable().then(function() {
+                    $scope.loadActiveTable().then(function () {
                         app.visualization.create('table', [], {
                             title: $scope.report.title == '' ? $scope.data.activeTable.qMeta.title : $scope.report.title
-                        }).then(function(visual) {
+                        }).then(function (visual) {
                             $scope.report.tableID = visual.id;
                             $(".rain").hide();
-                            visual.show('customreporttable');
+                            console.log(' $scope.qId', $scope.qId)
+                            visual.show('customreporttable-id-' + $scope.qId);
                             deferred.resolve(true);
                         });
                     });
                     return deferred.promise;
                 }
 
-                $scope.getInterColumnSortOrder = function() {
+                $scope.getInterColumnSortOrder = function () {
                     var deferred = $q.defer();
 
                     if ($scope.report.interColumnSortOrder.length == 0) {
-                        app.getObject($scope.report.tableID).then(function(model) {
-                            model.getEffectiveProperties().then(function(reply) {
+                        app.getObject($scope.report.tableID).then(function (model) {
+                            model.getEffectiveProperties().then(function (reply) {
                                 var dimCount = reply.qHyperCubeDef.qDimensions.length;
                                 var interColSortOrder = [];
-                                _.each(reply.qHyperCubeDef.qInterColumnSortOrder, function(item) {
+                                _.each(reply.qHyperCubeDef.qInterColumnSortOrder, function (item) {
                                     if (item >= dimCount) {
                                         var newItem = {
                                             dataId: reply.qHyperCubeDef.qMeasures[item - dimCount].dataId,
@@ -494,39 +504,39 @@ define([
                     return deferred.promise;
                 };
 
-                $scope.setReportState = function(state) {
-                    $scope.createTable().then(function() {
-                            var newState = [];
-                            if (state && state.itemIds) {
-                                _.each(state.itemIds, function(itemId) {
-                                    var idx = $scope.report.dimensions.map(function(x) {
+                $scope.setReportState = function (state) {
+                    $scope.createTable().then(function () {
+                        var newState = [];
+                        if (state && state.itemIds) {
+                            _.each(state.itemIds, function (itemId) {
+                                var idx = $scope.report.dimensions.map(function (x) {
+                                    return x.dataId;
+                                }).indexOf(itemId);
+                                if (idx > -1) {
+                                    $scope.report.dimensions[idx].selected = true;
+                                    newState.push($scope.report.dimensions[idx]);
+                                } else {
+                                    idx = $scope.report.measures.map(function (x) {
                                         return x.dataId;
                                     }).indexOf(itemId);
                                     if (idx > -1) {
-                                        $scope.report.dimensions[idx].selected = true;
-                                        newState.push($scope.report.dimensions[idx]);
-                                    } else {
-                                        idx = $scope.report.measures.map(function(x) {
-                                            return x.dataId;
-                                        }).indexOf(itemId);
-                                        if (idx > -1) {
-                                            $scope.report.measures[idx].selected = true;
-                                            newState.push($scope.report.measures[idx]);
-                                        }
+                                        $scope.report.measures[idx].selected = true;
+                                        newState.push($scope.report.measures[idx]);
                                     }
-                                });
-                            }
-                            $scope.report.state = newState;
-                            $scope.updateTable();
-                        });
+                                }
+                            });
+                        }
+                        $scope.report.state = newState;
+                        $scope.updateTable();
+                    });
                 };
 
-                $scope.updateTable = function() {
-                    console.log('updateTable report',$scope.report);
+                $scope.updateTable = function () {
+                    console.log('updateTable report', $scope.report);
                     if ($scope.report.tableID != '') {
                         if ($scope.report.state.length > 0) {
                             var supressZero = $scope.report.supressZero ? true : false;
-                            var dimensions = _.reduce($scope.report.state, function(acc, obj) {
+                            var dimensions = _.reduce($scope.report.state, function (acc, obj) {
                                 if (obj.type == 'dimension') {
                                     obj.columnOptions.dataId = obj.dataId
                                     acc.push(obj.columnOptions);
@@ -534,7 +544,7 @@ define([
                                 return acc;
                             }, []);
 
-                            var measures = _.reduce($scope.report.state, function(acc, obj) {
+                            var measures = _.reduce($scope.report.state, function (acc, obj) {
                                 if (obj.type == 'measure') {
                                     obj.columnOptions.dataId = obj.dataId
                                     acc.push(obj.columnOptions);
@@ -546,7 +556,7 @@ define([
                             var measureCount = 0;
                             var dimensionCount = 0;
 
-                            _.each($scope.report.state, function(obj) {
+                            _.each($scope.report.state, function (obj) {
                                 if (obj.type == 'measure') {
                                     columnOrder.push(dimensions.length + measureCount);
                                     measureCount = measureCount + 1;
@@ -562,12 +572,12 @@ define([
                                 columnWidths.push(-1);
                             }
 
-                            $scope.getInterColumnSortOrder().then(function() {
+                            $scope.getInterColumnSortOrder().then(function () {
                                 var qInterColumnSortOrder = [];
 
-                                _.each($scope.report.interColumnSortOrder, function(item) {
+                                _.each($scope.report.interColumnSortOrder, function (item) {
                                     if (item.type == "measure") {
-                                        var idx = measures.map(function(x) {
+                                        var idx = measures.map(function (x) {
                                             return x.dataId;
                                         }).indexOf(item.dataId);
                                         if (idx > -1) {
@@ -579,7 +589,7 @@ define([
                                             }
                                         }
                                     } else {
-                                        var idx = dimensions.map(function(x) {
+                                        var idx = dimensions.map(function (x) {
                                             return x.dataId;
                                         }).indexOf(item.dataId);
                                         if (idx > -1) {
@@ -596,46 +606,46 @@ define([
                                 //add newly added item to qInterColumnSortOrder 
                                 if (qInterColumnSortOrder.length != columnOrder.length) {
                                     var missingValues = _.difference(columnOrder, qInterColumnSortOrder)
-                                    _.each(missingValues, function(value) {
+                                    _.each(missingValues, function (value) {
                                         qInterColumnSortOrder.push(value);
                                     })
                                 }
-                                app.getObject($scope.report.tableID).then(function(visual) {
-                                    visual.getProperties().then(function(properties) {
-                                        console.log('visual props',properties);
-                                    
+                                app.getObject($scope.report.tableID).then(function (visual) {
+                                    visual.getProperties().then(function (properties) {
+                                        console.log('visual props', properties);
+
                                     });
 
                                     visual.clearSoftPatches();
                                     var patches = [{
-                                            "qOp": "replace",
-                                            "qPath": "qHyperCubeDef/qDimensions",
-                                            "qValue": JSON.stringify(dimensions)
-                                        }, {
-                                            "qOp": "replace",
-                                            "qPath": "qHyperCubeDef/qMeasures",
-                                            "qValue": JSON.stringify(measures)
-                                        },
-                                        {
-                                            "qOp": "replace",
-                                            "qPath": "qHyperCubeDef/columnOrder",
-                                            "qValue": JSON.stringify(columnOrder)
-                                        }, 
-                                        {
-                                            "qOp": "replace",
-                                            "qPath": "qHyperCubeDef/columnWidths",
-                                            "qValue": JSON.stringify(columnWidths)
-                                        },
-                                        {
-                                            "qOp": "replace",
-                                            "qPath": "qHyperCubeDef/qSuppressZero",
-                                            "qValue": JSON.stringify(supressZero)
-                                        }, 
-                                        {
-                                            "qOp": "replace",
-                                            "qPath": "qHyperCubeDef/qInterColumnSortOrder",
-                                            "qValue": JSON.stringify(qInterColumnSortOrder)
-                                        },
+                                        "qOp": "replace",
+                                        "qPath": "qHyperCubeDef/qDimensions",
+                                        "qValue": JSON.stringify(dimensions)
+                                    }, {
+                                        "qOp": "replace",
+                                        "qPath": "qHyperCubeDef/qMeasures",
+                                        "qValue": JSON.stringify(measures)
+                                    },
+                                    {
+                                        "qOp": "replace",
+                                        "qPath": "qHyperCubeDef/columnOrder",
+                                        "qValue": JSON.stringify(columnOrder)
+                                    },
+                                    {
+                                        "qOp": "replace",
+                                        "qPath": "qHyperCubeDef/columnWidths",
+                                        "qValue": JSON.stringify(columnWidths)
+                                    },
+                                    {
+                                        "qOp": "replace",
+                                        "qPath": "qHyperCubeDef/qSuppressZero",
+                                        "qValue": JSON.stringify(supressZero)
+                                    },
+                                    {
+                                        "qOp": "replace",
+                                        "qPath": "qHyperCubeDef/qInterColumnSortOrder",
+                                        "qValue": JSON.stringify(qInterColumnSortOrder)
+                                    },
                                     ];
                                     visual.applyPatches(patches, true);
                                     $scope.serializeReport();
@@ -644,7 +654,7 @@ define([
                                 });
                             })
                         } else {
-                            app.getObject($scope.report.tableID).then(function(visual) {
+                            app.getObject($scope.report.tableID).then(function (visual) {
                                 visual.clearSoftPatches();
                                 $scope.report.interColumnSortOrder = [];
                                 $scope.serializeReport();
@@ -654,8 +664,8 @@ define([
                     }
                 }
 
-                $scope.selectItem = function(item) {
-                    var idx = $scope.report.state.map(function(x) {
+                $scope.selectItem = function (item) {
+                    var idx = $scope.report.state.map(function (x) {
                         return x.dataId;
                     }).indexOf(item.dataId);
                     if (idx > -1) {
@@ -668,12 +678,12 @@ define([
                     $scope.updateTable();
                 }
 
-                $scope.clearAll = function() {
-                    _.each($scope.report.dimensions, function(dimension) {
+                $scope.clearAll = function () {
+                    _.each($scope.report.dimensions, function (dimension) {
                         dimension.selected = false;
                     })
 
-                    _.each($scope.report.measures, function(measure) {
+                    _.each($scope.report.measures, function (measure) {
                         measure.selected = false;
                     })
 
@@ -682,16 +692,16 @@ define([
 
                 }
 
-                $scope.removeItem = function(item) {
+                $scope.removeItem = function (item) {
                     $scope.report.state = _.without($scope.report.state, item);
 
                     if (item.type == 'measure') {
-                        var idx = $scope.report.measures.map(function(x) {
+                        var idx = $scope.report.measures.map(function (x) {
                             return x.dataId;
                         }).indexOf(item.dataId);
                         $scope.report.measures[idx].selected = false;
                     } else {
-                        var idx = $scope.report.dimensions.map(function(x) {
+                        var idx = $scope.report.dimensions.map(function (x) {
                             return x.dataId;
                         }).indexOf(item.dataId);
                         $scope.report.dimensions[idx].selected = false;
@@ -699,16 +709,16 @@ define([
                     $scope.updateTable();
                 }
 
-                $scope.hideFieldAndSortbar = function() { 
+                $scope.hideFieldAndSortbar = function () {
                     $scope.fieldsAndSortbarVisible = false;
                     $scope.updateTable();
                 }
 
-                $scope.showFieldAndSortbar = function() { 
+                $scope.showFieldAndSortbar = function () {
                     $scope.fieldsAndSortbarVisible = true;
                     $scope.updateTable();
                 }
-                $scope.exportData = function(string) {
+                $scope.exportData = function (string) {
                     if ($scope.report.state.length > 0) {
                         var options = {};
                         switch (string) {
@@ -737,10 +747,10 @@ define([
                                 break;
                         }
                         $(".rain").show();
-                        $scope.rainText = {text: 'Exporting data'}
-                        console.log('scope',$scope);
-                        app.visualization.get($scope.report.tableID).then(function(visual) {
-                            visual.table.exportData(options).then(function(reply){
+                        $scope.rainText = { text: 'Exporting data' }
+                        console.log('scope', $scope);
+                        app.visualization.get($scope.report.tableID).then(function (visual) {
+                            visual.table.exportData(options).then(function (reply) {
                                 $(".rain").hide();
                                 $scope.rainText = false;
                             });
@@ -748,19 +758,20 @@ define([
                     }
                 }
 
-                $scope.serializeReport = function() {
+                $scope.serializeReport = function () {
                     var localStorageToken = JSON.parse(localStorage.getItem(localStorageId));
-                    if (null === localStorageToken || undefined === localStorageToken || undefined === localStorageToken.states) { 
-                        localStorageToken = { activeTableId: "",
-                                                states: {}
-                                            };
-                    } 
+                    if (null === localStorageToken || undefined === localStorageToken || undefined === localStorageToken.states) {
+                        localStorageToken = {
+                            activeTableId: "",
+                            states: {}
+                        };
+                    }
                     var itemIds = [];
-                    _.each($scope.report.state, function(item) {
+                    _.each($scope.report.state, function (item) {
                         itemIds.push(item.dataId);
                     })
 
-                    $scope.getInterColumnSortOrder().then(function() {
+                    $scope.getInterColumnSortOrder().then(function () {
                         var state = {
                             qId: $scope.data.activeTable.qInfo.qId,
                             itemIds: itemIds,
@@ -768,66 +779,77 @@ define([
                         }
                         localStorageToken.activeTableId = state.qId;
                         localStorageToken.fieldsAndSortbarVisible = $scope.fieldsAndSortbarVisible;
-                        
+
                         localStorageToken.states[state.qId] = state
-                        
+
                         $scope.report.interColumnSortOrder = [];
                         localStorage.setItem(localStorageId, JSON.stringify(localStorageToken));
                         console.log('serialized state:', localStorageToken);
-                    }).catch(function(){
+                    }).catch(function () {
                         localStorage.setItem(localStorageId, JSON.stringify(localStorageToken));
                         console.log('serialized state:', localStorageToken);
 
                     });
                 }
 
-                $scope.deserializeReport = function() {
+                $scope.deserializeReport = function () {
                     var state = {};
                     var localStorageToken = JSON.parse(localStorage.getItem(localStorageId));
                     if (undefined != localStorageToken && undefined != localStorageToken.states) {
                         console.log('deserialized state:', localStorageToken);
-                        state = localStorageToken.states[localStorageToken.activeTableId] 
+                        state = localStorageToken.states[localStorageToken.activeTableId]
                         $scope.report.interColumnSortOrder = state.qInterColumnSortOrder ? state.qInterColumnSortOrder : [];
                         $scope.fieldsAndSortbarVisible = localStorageToken.fieldsAndSortbarVisible;
-                        $scope.data.activeTable = _.find($scope.data.masterObjectList, function(item) {
+                        $scope.data.activeTable = _.find($scope.data.masterObjectList, function (item) {
                             return item.qInfo.qId == state.qId;
                         });
-                        $scope.setReportState(state);                        
+                        $scope.setReportState(state);
                     }
                 }
 
                 //$scope.$on('$destroy', function() {
-                    //$scope.serializeReport();
+                //$scope.serializeReport();
                 //});
 
-                $scope.$watchCollection('layout.props.tagSetting', function(newTag) {
+                $scope.$on('onRepeatLast', function (scope, element, attrs) {
+                    console.log('attr',attrs)
+                    $element.find('#dimensionSortable').perfectScrollbar('update');
+                    
+                    //$element.find('.dimension-scroller').perfectScrollbar('update');
+                    //$element.find('.measure-scroller').perfectScrollbar('update');
+
+                    console.log('$element.find(#dimensionSortable)',$element.find('#dimensionSortable'))
+                    // $scope.updateTable();
+                });
+
+                $scope.$watchCollection('layout.props.tagSetting', function (newTag) {
                     $scope.data.tag = newTag;
                     initMasterItems();
                 });
 
-                $scope.$watchCollection('layout.props.tagColor', function(newStyle) {
+                $scope.$watchCollection('layout.props.tagColor', function (newStyle) {
                     $scope.data.tagColor = newStyle;
                 });
 
-                $scope.$watchCollection('layout.props.collapseMinWidth', function(newWidth) {
+                $scope.$watchCollection('layout.props.collapseMinWidth', function (newWidth) {
                     $scope.minWidthCollapsed = newWidth;
                 });
 
-                 $scope.$watchCollection('layout.props.collapseMinHeight', function(newHeight) {
+                $scope.$watchCollection('layout.props.collapseMinHeight', function (newHeight) {
                     $scope.minHeightCollapsed = newHeight;
                 });
 
 
-                $scope.$watchCollection('layout.props.displayText', function(newText) {
+                $scope.$watchCollection('layout.props.displayText', function (newText) {
                     $scope.data.displayText = newText;
                 });
 
-                $scope.$watchCollection('layout.props.dimensionSortOrder', function(newStyle) {
+                $scope.$watchCollection('layout.props.dimensionSortOrder', function (newStyle) {
                     $scope.data.sortOrder = newStyle;
                     $scope.loadActiveTable();
                 });
 
-                $scope.getListMaxHeight = function(listType) {
+                $scope.getListMaxHeight = function (listType) {
                     var listHeight = 38;
                     var dimCount = $scope.report.dimensions.length
                     var measureCount = $scope.report.measures.length
@@ -853,7 +875,7 @@ define([
                     }
                 }
 
-                $scope.getTableHeight = function() {
+                $scope.getTableHeight = function () {
                     var labelsAndButtons = 70;
 
                     $('#reportSortable').height();
@@ -862,17 +884,17 @@ define([
                     if (!$scope.fieldsAndSortbarVisible) {
                         return { "height": $scope.size.clientHeight + "px" }
                     } else {
-                        return { "height": ($scope.size.clientHeight - labelsAndButtons - reportSortableHeight) + "px", "padding-top":"18px" }
+                        return { "height": ($scope.size.clientHeight - labelsAndButtons - reportSortableHeight) + "px", "padding-top": "18px" }
                     }
                 }
-                $scope.getContainerWidth = function(container) {
+                $scope.getContainerWidth = function (container) {
                     var containerLeftWidth = 220;
                     var containerWidth = {};
                     if (container == 'left') {
-                       containerWidth = containerLeftWidth;
+                        containerWidth = containerLeftWidth;
                     } else {
                         if (!$scope.fieldsAndSortbarVisible) {
-                            containerWidth =  $scope.size.clientWidth;
+                            containerWidth = $scope.size.clientWidth;
                         } else {
                             containerWidth = $scope.size.clientWidth - containerLeftWidth - 20;
                         }
@@ -881,8 +903,8 @@ define([
                 }
 
                 initLibraryItems();
-                
-                initMasterItems().then(function(reply) {
+
+                initMasterItems().then(function (reply) {
                     var el = document.getElementById('reportSortable');
                     sortable.create(el, $scope.reportConfig);
 
