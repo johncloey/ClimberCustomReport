@@ -6,7 +6,7 @@ define([
     //"client.utils/property-resolver",
     'ng!$q',
     'ng!$http',
-    './lib/js/components/pp-climber/pp-climber'
+    './lib/js/components/pp-cl-about/pp-cl-about'
 
 ], function($, qlik, /*propertyResolver,*/ $q, $http) {
     'use strict';
@@ -157,11 +157,25 @@ define([
 
     }
 
+    var hideExpandIcon = {
+        type: "boolean",
+        label: "Hide expand icon",
+        ref: "props.hideExpandIcon",
+        defaultValue: false,
+    }
+
+    var hideExportIcon = {
+        type: "boolean",
+        label: "Hide export icon",
+        ref: "props.hideExportIcon",
+        defaultValue: false,
+    }
+
     // ****************************************************************************************
     // Property Panel Definition
     // ****************************************************************************************
     var about = {
-        component: "pp-cl-customreport",
+        component: "pp-@@extensionnamespace@@extensionnamesafe",
         translation: "Common.About",
         show: true,
     };
@@ -180,7 +194,9 @@ define([
                     allowCollapse: allowCollapse,
                     collapseMinWidth: collapseMinWidth,
                     collapseMinHeight: collapseMinHeight,
-                    displayText: displayText
+                    displayText: displayText,
+                    hideExpandIcon: hideExpandIcon,
+                    hideExportIcon: hideExportIcon,
                 }
             },
             about: about,

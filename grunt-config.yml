@@ -2,6 +2,10 @@
 # General Settings
 # -------------------------------------------------------------------
 general:
+  # Version of the extension, will be re-used in several areas,
+  # e.g the generated .zip-file in the 'release' Grunt-task
+  Version:              "1.1.0"
+
   # Path to the extension directory in Qlik Sense Desktop
   LocalExtensionPath:   "C:\\Users\\clkaf\\Documents\\Qlik\\Sense\\Extensions"
 
@@ -17,9 +21,16 @@ general:
   # Description of the Extension as defined in the generator
   ExtensionDescription: "Custom Report for Qlik Sense"
 
-  # Version of the extension, will be re-used in several areas,
-  # e.g the generated .zip-file in the 'release' Grunt-task
-  Version:              "1.0.11"
+  # Name of the Extension displayed in the property panel
+  AboutExtensionName: "Custom Report"
+
+  # About url
+  AboutUrl:   "http://goo.gl/0TzmFM"
+
+  # Font size of the about component title
+  AboutTitleFontSize: "27"
+
+
 
 # -------------------------------------------------------------------
 # Settings for the 'dev' Grunt task

@@ -43,7 +43,7 @@ define([
 
                 this.$scope.handleResize($element, layout.props.allowCollapse);
                 $element.find('#dimensionSortable').perfectScrollbar();
-                //$element.find('.dimension-scroller').perfectScrollbar();
+                $element.find('#measureSortable').perfectScrollbar();
 
             },
 
@@ -814,12 +814,7 @@ define([
                 $scope.$on('onRepeatLast', function (scope, element, attrs) {
                     console.log('attr',attrs)
                     $element.find('#dimensionSortable').perfectScrollbar('update');
-                    
-                    //$element.find('.dimension-scroller').perfectScrollbar('update');
-                    //$element.find('.measure-scroller').perfectScrollbar('update');
-
-                    console.log('$element.find(#dimensionSortable)',$element.find('#dimensionSortable'))
-                    // $scope.updateTable();
+                    $element.find('#measureSortable').perfectScrollbar('update');
                 });
 
                 $scope.$watchCollection('layout.props.tagSetting', function (newTag) {
@@ -842,6 +837,14 @@ define([
 
                 $scope.$watchCollection('layout.props.displayText', function (newText) {
                     $scope.data.displayText = newText;
+                });
+
+                $scope.$watchCollection('layout.props.hideExportIcon', function (newValue) {
+                    $scope.data.hideExportIcon = newValue;
+                });
+
+                $scope.$watchCollection('layout.props.hideExpandIcon', function (newValue) {
+                    $scope.data.hideExpandIcon = newValue;
                 });
 
                 $scope.$watchCollection('layout.props.dimensionSortOrder', function (newStyle) {
