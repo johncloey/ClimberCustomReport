@@ -176,7 +176,7 @@ define([
     // ****************************************************************************************
     var about = {
         component: "pp-@@extensionnamespace@@extensionnamesafe",
-        translation: "Common.About",
+        translation: "About",
         show: true,
     };
 
