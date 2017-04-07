@@ -10,16 +10,6 @@ define( [], function () {
             tagColor: true,
             sortOrder: "SortByA",
         }
-        /*
-        qHyperCubeDef: {
-            qDimensions: [],
-            qMeasures: [],
-            qInitialDataFetch: [
-                {
-                    qWidth: 2,
-                    qHeight: 50
-                }
-            ]
-        }*/
+        
     };
 } );

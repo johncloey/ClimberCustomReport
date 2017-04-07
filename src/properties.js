@@ -8,7 +8,7 @@ define([
     'ng!$http',
     './lib/js/components/pp-cl-about/pp-cl-about'
 
-], function($, qlik, /*propertyResolver,*/ $q, $http) {
+], function ($, qlik, /*propertyResolver,*/ $q, $http) {
     'use strict';
 
     var app = qlik.currApp();
@@ -28,17 +28,17 @@ define([
     */
 
     //Create a function that returns a list of unique tags applied to master objects
-    var getTagList = function() {
+    var getTagList = function () {
         var defer = $q.defer();
 
-        app.getAppObjectList('masterobject', function(data) {
+        app.getAppObjectList('masterobject', function (data) {
             var tags = [];
             var uniqTags = [];
             var exportTags = [];
 
-            _.each(data.qAppObjectList.qItems, function(item) {
+            _.each(data.qAppObjectList.qItems, function (item) {
                 if (item.qData.visualization == 'table') {
-                    _.each(item.qMeta.tags, function(tag) {
+                    _.each(item.qMeta.tags, function (tag) {
                         tags.push(tag);
                     });
                 }
@@ -50,7 +50,7 @@ define([
                 label: 'All tables'
             });
 
-            _.each(uniqTags, function(tag) {
+            _.each(uniqTags, function (tag) {
                 exportTags.push({
                     value: tag,
                     label: tag
@@ -71,8 +71,8 @@ define([
         label: "Select tag",
         ref: "props.tagSetting",
         defaultValue: 'All tables',
-        options: function() {
-            return getTagList().then(function(items) {
+        options: function () {
+            return getTagList().then(function (items) {
                 return items;
             });
         }
@@ -133,7 +133,7 @@ define([
         label: "Trigger collapse min width",
         ref: "props.collapseMinWidth",
         defaultValue: 200,
-        show: function(data) {
+        show: function (data) {
             return data.props.allowCollapse;
         }
     };
@@ -143,7 +143,7 @@ define([
         label: "Trigger collapse min height",
         ref: "props.collapseMinHeight",
         defaultValue: 200,
-        show: function(data) {
+        show: function (data) {
             return data.props.allowCollapse;
         }
     }
@@ -174,11 +174,7 @@ define([
     // ****************************************************************************************
     // Property Panel Definition
     // ****************************************************************************************
-    var about = {
-        component: "pp-@@extensionnamespace@@extensionnamesafe",
-        translation: "About",
-        show: true,
-    };
+
 
     // Appearance Panel
     var appearancePanel = {
@@ -188,7 +184,6 @@ define([
                 type: "items",
                 label: "Settings",
                 items: {
-                    //tagSetting: tagSetting,
                     tagColor: tagColor,
                     sortOrder: sortOrder,
                     allowCollapse: allowCollapse,
@@ -199,7 +194,6 @@ define([
                     hideExportIcon: hideExportIcon,
                 }
             },
-            about: about,
         }
     };
 
@@ -216,6 +210,18 @@ define([
                 items: {
                     tagList: tagList
                 }
+            }
+        }
+    };
+
+    var aboutPanel = {
+        type: "items",
+        translation: "Common.About",
+        items: {
+            about: {
+                component: "pp-@@extensionnamespace@@extensionnamesafe",
+                translation: "About",
+                show: true,
             }
         }
     };
@@ -267,12 +273,12 @@ define([
         component: "expandable-items",
         translation: "properties.addons",
         items: {
-            dataHandling: { 
-            	uses: "dataHandling",
-            	items: {
-            		suppressZero: { show:false }
-            	}
-        	}
+            dataHandling: {
+                uses: "dataHandling",
+                items: {
+                    suppressZero: { show: false }
+                }
+            }
         }
     }
 
@@ -286,7 +292,8 @@ define([
             //measures: measures,
             //sorting: sorting,
             addons: addons,
-            appearance: appearancePanel
+            appearance: appearancePanel,
+            about: aboutPanel,
 
         }
     };
