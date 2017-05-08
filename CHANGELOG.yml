@@ -23,4 +23,9 @@ v1.1.7:
   new:
   enhancements:  
     - Bug fix, default items split
+v1.1.8:
+  date: "2017-05-08"
+  new:
+  enhancements:  
+    - Bug fixes
   
