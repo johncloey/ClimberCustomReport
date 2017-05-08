@@ -18,4 +18,9 @@ v1.1.6:
   new:
   enhancements:  
     - Bug fix, default table undefined
+v1.1.7:
+  date: "2017-05-08"
+  new:
+  enhancements:  
+    - Bug fix, default items split
   
