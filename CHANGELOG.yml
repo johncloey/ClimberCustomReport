@@ -8,4 +8,9 @@ v1.1.4:
   new:
     - Default table and items
   enhancements:
+v1.1.5:
+  date: "2017-05-05"
+  new:
+  enhancements:  
+    - Bug fix, default table undefined
   
