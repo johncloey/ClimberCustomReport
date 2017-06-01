@@ -33,4 +33,9 @@ v1.1.9:
   new:
   enhancements:  
     - Fixed Table API export bug in 3.2 SR3 & SR4
+v1.1.10:
+  date: "2017-06-01"
+  new:
+  enhancements:  
+    - Fixed light color in table
   
