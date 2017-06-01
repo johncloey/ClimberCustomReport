@@ -38,4 +38,9 @@ v1.1.10:
   new:
   enhancements:  
     - Fixed light color in table
+v1.1.11:
+  date: "2017-06-01"
+  new:
+  enhancements:  
+    - Fixed sort order in table list
   
