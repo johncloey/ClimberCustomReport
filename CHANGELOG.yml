@@ -28,4 +28,9 @@ v1.1.8:
   new:
   enhancements:  
     - Bug fixes
+v1.1.9:
+  date: "2017-06-01"
+  new:
+  enhancements:  
+    - Fixed Table API export bug in 3.2 SR3 & SR4
   

@@ -1,1 +1,1 @@
-define([],function(){"use strict";return{props:{allowCollapse:!0,collapseMinWidth:200,collapseMinHeight:200,displayText:"Custom Report",tagColor:!0,sortOrder:"SortByA"}}});
+define([],function(){"use strict";return{propertiesVersion:"1.1.9",qHyperCubeDef:{qDimensions:[],qMeasures:[]}}});
