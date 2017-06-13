@@ -41,6 +41,24 @@ These external libraries are used within this solution. Many thanks to the autho
 * Url: https://github.com/RubaXa/Sortable
 * Author: Lebedev Konstantin ibnRubaXa@gmail.com http://rubaxa.github.io/Sortable/
 
+**extensionUtils**
+* Name: extensionUtils
+* License: The MIT License (MIT) Copyright (c) 2015
+* Url: https://github.com/stefanwalther/sense-extension-utils
+* Author: Stefan Walther
+
+**lodash**
+* Name:lodash
+* License: The MIT License (MIT)
+* Url: https://lodash.com/
+* Author: Jeremy Ashkenas
+
+**perfect-scrollbar**
+* Name:perfect-scrollbar
+* License: The MIT License (MIT) Copyright (c) 2012-2016
+* Url: https://noraesae.github.io/perfect-scrollbar/
+* Author: Hyunje Jun
+
 ---
 
 

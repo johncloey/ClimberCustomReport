@@ -1,1 +1,1 @@
-define([],function(){"use strict";return{propertiesVersion:"1.1.11",qHyperCubeDef:{qDimensions:[],qMeasures:[]}}});
+define([],function(){"use strict";return{propertiesVersion:"1.2.0",qHyperCubeDef:{qDimensions:[],qMeasures:[]}}});
