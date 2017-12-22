@@ -48,4 +48,8 @@ v1.1.12:
   new:
   enhancements:  
     - Export bug ADFS (not supporting 3.2 SR3 & SR4)
-  
+v1.2.2:
+  date: "2017-12-22"
+  new:
+  enhancements:  
+    - Sort Order bug fix

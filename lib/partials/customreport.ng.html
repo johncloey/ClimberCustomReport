@@ -20,7 +20,7 @@
                 <div class="dimension-scroller">
                     <ul id="dimensionSortable" class="lui-list dimension-list" ng-style="getListMaxHeight('dimension')" style="overflow-y: auto; overflow-x:hidden; position: relative">
                         <li qv-swipe="swipe($event)" ng-class="{selected: dimension.selected}" class="lui-list__item" ng-click="selectItem(dimension)"
-                            title="{{dimension.title +'\n' + dimension.description}}" on-last-repeat="dimension" ng-repeat="dimension in report.dimensions"
+                            title="{{dimension.title +'\n' + dimension.description}}" on-last-repeat="dimension" ng-repeat="dimension in report.dimensions | orderBy:(data.sortOrderAlphabetical?'title':'')" 
                             data-id={{dimension.dataId}}>
                             <div class="lui-list__text">{{dimension.title}}</div>
                             <div class="icon-tick lui-list-icon" ng-if="dimension.selected"></div>
@@ -31,7 +31,7 @@
                 <div class="measure-scroller">
                     <ul id="measureSortable" class="lui-list measure-list scroller" ng-style="getListMaxHeight('measure')" style="overflow-y: auto; overflow-x:hidden; position: relative">
                         <li class="lui-list__item" ng-class="{selected: measure.selected}" ng-click="selectItem(measure)" title="{{measure.title +'\n' + measure.description}}"
-                            on-last-repeat="measure" ng-repeat="measure in report.measures">
+                            on-last-repeat="measure" ng-repeat="measure in report.measures | orderBy:(data.sortOrderAlphabetical?'title':'')">
                             <div class="lui-list__text">{{measure.title}}</div>
                             <div class="icon-tick lui-list-icon" ng-if="measure.selected"></div>
                         </li>
