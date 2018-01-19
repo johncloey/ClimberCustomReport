@@ -53,3 +53,9 @@ v1.2.2:
   new:
   enhancements:  
     - Sort Order bug fix
+v1.2.3:
+  date: "2018-01-19"
+  new:
+  enhancements:  
+    - Context menu now works in mash ups
+    - Context menu has now items on first level
