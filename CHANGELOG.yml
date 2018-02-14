@@ -59,3 +59,8 @@ v1.2.3:
   enhancements:  
     - Context menu now works in mash ups
     - Context menu has now items on first level
+v1.3.0:
+  date: "2018-02-14"
+  new:
+  enhancements:  
+    - Fix $q
