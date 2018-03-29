@@ -69,3 +69,8 @@ v1.3.1:
   new:
   enhancements:  
     - New icon and about panel
+v1.3.2:
+  date: "2018-03-29"
+  new:
+  enhancements:  
+    - CurrApp fix. Can now use multiple Custom-Reports (different apps) in mashup context
