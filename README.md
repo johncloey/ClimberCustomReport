@@ -3,6 +3,8 @@
 
 ![Alt text](/screenshots/CustomReportSmaller.png?raw=true "Custom Report")
 
+***Tested from Qlik Sense June 2017 (in the initial release of June 2017, extensions load slow. It's fixed in patch 1 )***
+
 ## Purpose and Description
 In QlikView we saw a lot of users requesting a customizable straight table. Now that is possible in Qlik Sense too! The Custom Report extension allows you to create custom tables based on data in master tables. (For more info on customizable tables in QlikView, check out [this link](https://community.qlik.com/blogs/qlikviewdesignblog/2014/01/31/customizable-straight-table).)
 
