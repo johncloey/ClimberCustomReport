@@ -1,0 +1,10 @@
+{
+    "name": "Climber Custom Report",
+    "description": "",
+    "version": "2.0.2",
+    "license": "Copyright Climber AB Free to use, no changes allowed",
+    "type": "visualization",
+    "icon": "table",
+    "preview": "preview.jpg",
+    "author": "Karl Fredberg Sjöstrand"
+}

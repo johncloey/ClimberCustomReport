@@ -1,75 +1,167 @@
 # Climber Custom Report
-### Self service without edit-mode for Qlik Sense!  
+<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.0.2/cl-custom-report-v2.0.2.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
+alt="Download latest release" width="400" height="40" border="0" /></a>  
+ ### Self service without edit-mode for Qlik Sense!  
 
-![Alt text](/screenshots/CustomReportSmaller.png?raw=true "Custom Report")
+![Alt text](/screenshots/CustomReport.gif?raw=true "Custom Report")
 
 ## Purpose and Description
-In QlikView we saw a lot of users requesting a customizable straight table. Now that is possible in Qlik Sense too! The Custom Report extension allows you to create custom tables based on data in master tables. (For more info on customizable tables in QlikView, check out [this link](https://community.qlik.com/blogs/qlikviewdesignblog/2014/01/31/customizable-straight-table).)
+**IMPORTANT! Any older Custom Report objects need to be recreated with version 2.0!**
 
-First thing to do is create a table and make it a master item. The table is now accessible in Custom Report and you can select to show any or all measures and dimensions. Number format follows from the master item so no need to redo formatting! For full feature list see screenshots below.
+In QlikView we saw a lot of users requesting a customizable straight table. In Qlik Sense we have created something even better! The Custom Report extension allows the user to create custom tables based on data in master tables. 
 
-***Tested from Qlik Sense June 2017 (in the initial release of June 2017, extensions load slow. It's fixed in patch 1 )***
+With Custom Report + you can create your own personalized bookmarks and add shareable presets for your reports. In Custom Report + we have also extended the visualization types to include pivot tables and combo charts (more details below). 
 
-## Screenshots
-1. Create Master Item Table  
-![Alt text](/screenshots/CreateMasterTable.png?raw=true "Create Table")  
-![Alt text](/screenshots/CreateMasterTable2.png?raw=true "Add to master items")  
-2. Select master item in the drop-down and choose what to show in the dimensions and measures. The custom table will be updated accordingly. Only dimensions and measures that are used will be calculated by Qlik Sense. https://community.qlik.com/blogs/qlikviewdesignblog/2014/01/31/customizable-straight-table  
-![Alt text](/screenshots/CustomReport.png?raw=true "Custom Report")  
-3. Sorting of columns by drag and drop. 
-![Alt text](/screenshots/DragAndDropToSort.png?raw=true "Drag and drop to sort")  
-4. The table used is a standard Qlik Sense table so all standard features such as export and sorting are available. 
-![Alt text](/screenshots/StandardTableExport.png?raw=true "Standard table export and sort")  
-5. Using a minimized version of the object you can put a custom report on any sheet along with the rest of the visualizations. Click arrows to expand to full screen!  
-![Alt text](/screenshots/Minimized.png?raw=true "Minimized")  
-6. Right-click menu allows you to make changes even with fields/sortbar hidden  
-![Alt text](/screenshots/RightClickMenu.png?raw=true "Right-Click Menu")  
+First thing to do is create a simple straight table and make it a master item. The table is will now be accessible in Custom Report and you can select to show any or all measures and dimensions. Number format follows from the master item so no need to redo formatting! 
+
+**Tested with Qlik Sense June 2017 and later**
+
+## Custom Report vs Custom Report +
+
+![Alt text](/screenshots/CustomReport+.png?raw=true "CustomReport+")
+
+For more information about Custom Report + and our subscription model please check out our extension [page](https://www.climber.se/erbjudande/verktyg/climber-extensions-for-qlik-sense/).
+
+## Setup
+
+1. Create one or more Master Item Tables with the dimensions and measures you want to visualize.   
+  
+2. Select Master Item in the drop-down or drag and drop it on the visualization
+
+![Alt text](/screenshots/AddnewDataSet.gif?raw=true "Add new Data Set to Custom Report")
+
+## Defaults, presets and bookmarks
+
+### Default states
+
+All added data sets can have a default state when a new session is opened, i.e. preselected dimensions and measures. Even the table column widths are saved in the state. It is recommended to always set a default state so the user does not have to start with an empty table.
+
+To create a new default state for a dataset go in to edit mode. Select your measures/dimensions you want to set in you default state and click "Save default state". After you added a default state you can always show your current default state by clicking on the button "show default state". 
+
+To change your default state, just make your new selections and click "Save default state" again.
+
+-Save default state
+![Alt text](/screenshots/DefaultState.png?raw=true "Default State") 
+
+-Show default state
+![Alt text](/screenshots/ShowDefaultState.png?raw=true "Show Default State")   
+
+### Session
+
+Within a session, all selections between the data sets will be saved, i.e. the default state will not be followed once the session is started. This makes it possible to easily change between data sets without losing the last state.
+
+### Presets (Custom Report+)
+
+It is possible for the developer/super users to create presets (i.e. a saved state). Presets will be accessible for all users in the application. This can be used for creating predefined reports.
+
+Presets are accessible from the drop down of data sets 
+
+![Alt text](/screenshots/Presets.png?raw=true "Presets") 
+
+To create a preset select your dimensions/measures and go in to edit mode. Click on "presets" and click on "Add Preset". To change a preset, change your selections and click "Save preset". 
+
+You can always show a current preset by clicking "show preset" 
+
+![Alt text](/screenshots/PresetsCreate.png?raw=true "PresetsCreate") 
+
+### Bookmarks (Custom Report+)
+For the end user is possible to create personalized bookmarks. With bookmarks you can save a state and go back to that state using the standard Qlik Sense bookmark list. 
+
+How to use bookmarks
+
+1. Enable bookmarks in Custom Report Object
+
+![Alt text](/screenshots/EnableBookmarks.png?raw=true "Enable Bookmarks")
+
+2. Use the bookmark creator [[How to create a bookmark]](https://help.qlik.com/en-US/sense/2.1/Subsystems/Hub/Content/Bookmarks/create-bookmark.htm)
+
+![Alt text](/screenshots/CreateBookmarks.png?raw=true "Create Bookmark")
+
+3. Access the bookmarks 
+
+![Alt text](/screenshots/AccessBookmarks.png?raw=true "Access Bookmark")
+
+*Note!* To support bookmarks using the Qlik Sense standard functionality, the extension use variables starting with "ClimberCustomReport". If you accidently delete the variable, entering Edit mode will recreate it if the app is not published. Variables are not automatically deleted.
+
+## Sort Bar
+
+With the sort bar you can change the order of the dimensions and measures. It is possible to hide the sort bar for different visualizations types. 
+
+*From QS February 2018 it's possible to change column order in a table by dragging in the column header so typically a straight table does not need the Sort Bar*
+
+![Alt text](/screenshots/SortBar.gif?raw=true "SortBar")
+
+![Alt text](/screenshots/HideTheSortBar.png?raw=true "Hide the SortBar")
+
+## Other options
+
+1. The objects used are standard Qlik Sense objects so all standard features such as export and sorting are available (Export to image/pdf does not work. See limitations below.)
+
+2. Using a minimized version of the object you can put a custom report on any sheet along with the rest of the visualizations. Click arrows to expand to full screen!  
+
+3. Right-click menu allows you to make changes even with fields/sortbar hidden  
+
+4. Search in dimensions and measure list
+
+5. Clear all selections
+
+6. Add totals to table/pivot table
+![Alt text](/screenshots/AddTotals.png?raw=true "AddTotals")
+
+## Export to new application (Custom Report +)
+
+In Custom Report + it's possible to export the current state of a selected data set to a new application. In the new application, master items will be created from your dimension and measures.
+
+![Alt text](/screenshots/ExporttonewApp.gif?raw=true "ExporttonewApp")
 
 ## Installation
 
-1. Download the latest version of Qlik Sense (3.0 or higher)
+1. Download the latest version of Qlik Sense (QS June 2017 or higher)
 2. Qlik Sense Desktop
-	* To install, copy all files in the .zip file to folder "C:\Users\[%Username%]\Documents\Qlik\Sense\Extensions\cl-customreport\"
+    * To install, copy all files in the .zip file to folder "C:\Users\\[%Username%]\Documents\Qlik\Sense\Extensions\cl-customreport\"
 3. Qlik Sense Server
-	* See instructions [how to import an extension on Qlik Sense Server](http://help.qlik.com/en-US/sense/Subsystems/ManagementConsole/Content/import-extensions.htm)
+    * See instructions [how to import an extension on Qlik Sense Server](http://help.qlik.com/en-US/sense/Subsystems/ManagementConsole/Content/import-extensions.htm)
 
-## Configuration
+## Climber Extensions
+Like this extension? Check out the other Climber extensions below.
 
-* You can use tags in the master items to show only relevant master item tables. Choose your tag in the settings. (In the picture we used the tag "Custom report" but you can of course choose any tag you want.) 
+**Finance Report (P&L)**
+* https://www.youtube.com/watch?v=xOfShi94T4k
+(No free version available, only on subscription.)
 
-![Alt text](/screenshots/UseTags.png?raw=true "Use tags to filter master items")
+**Container**
+* https://github.com/ClimberAB/ClimberContainer
 
-* If you don't like the colored dimensions and measures it is possible to make them colorless. There is also a default sorting option for the dimensions and measures.
+**Selection Bar**
+* https://github.com/ClimberAB/ClimberSelectionBar
+* https://www.youtube.com/watch?v=4fxrphADRKw
 
-![Alt text](/screenshots/ColorOrNoColor.png?raw=true "Use tags to filter master items")
+**KPI**
+* https://github.com/ClimberAB/ClimberKPI
+* https://www.youtube.com/watch?v=9zdfYshNel4
 
+**Cards**
+* https://github.com/ClimberAB/ClimberCards
+* https://www.youtube.com/watch?v=k_IEt8TvB_c
 
-## Contributing
-Contributing to this project is welcome. The process to do so is outlined below:
+## Limitations
 
-1. Create a fork of the project
-2. Work on whatever bug or feature you wish
-3. Create a pull request (PR)
+1. No pdf/png export supported. (This also means no Nprinting support.)
+2. Calculation conditions in master items are not respected
+3. Master measure/dimension colors not respected
+4. A very small (collapsed) version of the extension could look nicer :-)
+5. Export to template only works in Qlik Sense Enterprise
+6. Unpublished sheets in a published app can't use Bookmarks
 
-I cannot guarantee that I will merge all PRs.
-
-## Know Issues
-Due to a bug in Qlik Sense (versions prior to 3.1. SR2) using exports with a virtual proxy requires a workaround. Export the table as ususal. In the URL for the exported object just add the virtual proxy prefix after the server name. (The object is actually exported correctly but we can not get the correct path from Qlik Sense.)  
-https://qlik.sense.server.com/tempcontent/c4ef2a92-2....  
-https://qlik.sense.server.com/VIRTUAL_PROXY_PREFIX/tempcontent/c4ef2a92-2....  
-Allow anonymous user need to be set on the Central Proxy.  
-
-## Author
-
-**Karl Fredberg Sjöstrand @ Climber**
+**Climber**
 * http://github.com/ClimberAB
-
 
 ## Change Log
 
-See [CHANGELOG](CHANGELOG.yml)
+See [CHANGELOG](CHANGELOG.md)
 
-## License & Copyright
-The software is made available "AS IS" without any warranty of any kind under the MIT License (MIT).
+## License
 
-See [Additional license information for this solution.](LICENSE.md)
+See [LICENSE](License.pdf)
+
+
