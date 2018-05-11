@@ -1,5 +1,5 @@
 # Climber Custom Report
-<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.0.2/cl-custom-report-v2.0.2.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
+<a href="@@repo/releases/download/v@@version/@@releasename-v@@version.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
 alt="Download latest release" width="400" height="40" border="0" /></a>  
  ### Self service without edit-mode for Qlik Sense!  
 
@@ -14,7 +14,7 @@ With Custom Report + you can create your own personalized bookmarks and add shar
 
 First thing to do is create a simple straight table and make it a master item. The table is will now be accessible in Custom Report and you can select to show any or all measures and dimensions. Number format follows from the master item so no need to redo formatting! 
 
-**Tested with Qlik Sense November 2017 and later**
+**Tested with Qlik Sense June 2017 and later**
 
 ## Custom Report vs Custom Report +
 
@@ -108,11 +108,15 @@ With the sort bar you can change the order of the dimensions and measures. It is
 6. Add totals to table/pivot table
 ![Alt text](/screenshots/AddTotals.png?raw=true "AddTotals")
 
-## Export to new application (Custom Report +)
+## Export to new application
 
-In Custom Report + it's possible to export the current state of a selected data set to a new application. In the new application, master items will be created from your dimension and measures.
+It is possible to export the current state of a selected data set to a new application. In the new application, master items will be created from your dimension and measures.
 
 ![Alt text](/screenshots/ExporttonewApp.gif?raw=true "ExporttonewApp")
+
+## Export to new application using a template (Custom Report+)
+
+To enable this feature, enable experimental features in the extension settings (Appearance\Settings). 
 
 ## Installation
 
