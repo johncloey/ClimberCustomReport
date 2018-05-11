@@ -14,7 +14,7 @@ With Custom Report + you can create your own personalized bookmarks and add shar
 
 First thing to do is create a simple straight table and make it a master item. The table is will now be accessible in Custom Report and you can select to show any or all measures and dimensions. Number format follows from the master item so no need to redo formatting! 
 
-**Tested with Qlik Sense June 2017 and later**
+**Tested with Qlik Sense November 2017 and later**
 
 ## Custom Report vs Custom Report +
 
