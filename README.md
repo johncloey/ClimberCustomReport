@@ -1,5 +1,5 @@
 # Climber Custom Report
-<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.0.2/cl-custom-report-v2.0.2.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
+<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.0.3/cl-custom-report-v2.0.3.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
 alt="Download latest release" width="400" height="40" border="0" /></a>  
  ### Self service without edit-mode for Qlik Sense!  
 
@@ -127,7 +127,7 @@ To enable this feature, enable experimental features in the extension settings (
     * See instructions [how to import an extension on Qlik Sense Server](http://help.qlik.com/en-US/sense/Subsystems/ManagementConsole/Content/import-extensions.htm)
 
 ## Climber Extensions
-Like this extension? Check out the other Climber extensions below.
+Like this extension? Check out the other Climber extensions below or visit [climberextensions.com](http://www.climberextensions.com) for more information about our extensions offerings.
 
 **Finance Report (P&L)**
 * https://www.youtube.com/watch?v=xOfShi94T4k

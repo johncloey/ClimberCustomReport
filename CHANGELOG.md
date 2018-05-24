@@ -6,6 +6,9 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.0.3 - 2018-05-24
+### Fixed
+- Can be used in a Container extension like Climber Container.
 ## 2.0.2 - 2018-05-07
 ### Changed
 - Sums on/off
