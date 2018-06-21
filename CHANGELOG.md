@@ -6,6 +6,23 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.1.0 - 2018-06-21
+### Added
+- Use expression labels option
+- Option to sort selected items first, default value true
+- Context menu include zero values  
+- Custom Export data dialog, that works in a mashup 
+### Changed
+- Export to new app goes to insights mode if June 2018 or later
+- Improved error message on export to app
+### Fixed
+- Export to new app/template for values sometimes is exported as NaN
+- Export to new app/template dual fields with spaces
+- Works with QS June 2018
+- Fix selections after search
+- Improved clean up.
+- Overflow caused by textarea
+
 ## 2.0.3 - 2018-05-24
 ### Fixed
 - Can be used in a Container extension like Climber Container.
