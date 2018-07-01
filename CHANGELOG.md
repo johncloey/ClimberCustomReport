@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
+## 2.1.2 - 2018-07-01
+### Fixed
+- Fixed swaping columns
+
+## 2.1.1 - 2018-06-29
+### Fixed
+- Fixed Export title name
 
 ## 2.1.0 - 2018-06-21
 ### Added
