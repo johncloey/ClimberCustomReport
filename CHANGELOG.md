@@ -6,6 +6,11 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.1.2 - 2018-07-11
+### Fixed
+- Fixed patch timeout for dimension och measure selections.
+- Hotfix for export url in mashup environments.
+
 ## 2.1.1 - 2018-06-29
 ### Fixed
 - Fixed swaping columns
