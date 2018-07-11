@@ -1,7 +1,7 @@
 {
     "name": "Climber Custom Report",
     "description": "",
-    "version": "2.1.2",
+    "version": "2.1.1",
     "license": "Copyright Climber AB Free to use, no changes allowed",
     "type": "visualization",
     "icon": "table",
