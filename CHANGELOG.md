@@ -6,6 +6,12 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.1.3 - 2018-07-13
+### Fixed
+- Fixed parameters for pivot table and combochart for before april 2018 versions. (Plus-version)
+- Corrected timeout parameter.
+- Fixed expression labels don't show as default when upgrading from 1.3.x to 2.x, even though property is set to false.
+
 ## 2.1.2 - 2018-07-11
 ### Fixed
 - Fixed patch timeout for dimension och measure selections.
@@ -15,7 +21,6 @@ Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 ### Fixed
 - Fixed swaping columns
 - Fixed Export title name
-
 
 ## 2.1.0 - 2018-06-21
 ### Added
