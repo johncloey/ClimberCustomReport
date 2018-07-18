@@ -6,6 +6,10 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.2.0 - 2018-07-18
+### Fixed
+- Issues introduced with 2.1.2 and 2.1.3
+
 ## 2.1.3 - 2018-07-13
 ### Fixed
 - Fixed parameters for pivot table and combochart for before april 2018 versions. (Plus-version)
