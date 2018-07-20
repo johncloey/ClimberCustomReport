@@ -1,5 +1,5 @@
 # Climber Custom Report
-<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.2.0/cl-custom-report-v2.2.0.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
+<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.2.1/cl-custom-report-v2.2.1.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
 alt="Download latest release" width="400" height="40" border="0" /></a>  
  ### Self service without edit-mode for Qlik Sense!  
 
