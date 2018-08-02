@@ -1,5 +1,5 @@
 # Climber Custom Report
-<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.2.1/cl-custom-report-v2.2.1.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
+<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.3.0/cl-custom-report-v2.3.0.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
 alt="Download latest release" width="400" height="40" border="0" /></a>  
  ### Self service without edit-mode for Qlik Sense!  
 
@@ -69,7 +69,7 @@ For the end user is possible to create personalized bookmarks. With bookmarks yo
 
 How to use bookmarks
 
-1. Enable bookmarks in Custom Report Object
+1. Enable bookmarks in Custom Report Object (enabled is default)
 
 <img src="./screenshots/EnableBookmarks.png?raw=true" alt="Enable Bookmarks" />
 
@@ -81,7 +81,7 @@ How to use bookmarks
 
 <img src="./screenshots/AccessBookmarks.png?raw=true" alt="Access Bookmark" />
 
-*Note!* To support bookmarks using the Qlik Sense standard functionality, the extension use variables starting with "ClimberCustomReport". If you accidently delete the variable, entering Edit mode will recreate it if the app is not published. Variables are not automatically deleted.
+*Note!* To support bookmarks using the Qlik Sense standard functionality, the extension creates and use variables starting with "ClimberCustomReport". These variables values are stored in the selection state and therefore in bookmarks. This is not the default behaviour of variables created in the Qlik Sense client. If you accidently delete the variable, entering Edit mode will recreate it if the app is not published. Variables are not automatically deleted. In the Custom Report+ state is stored even if Use Bookmarks is not enabled, but only applied if enabled. 
 
 ## Sort Bar
 
@@ -110,7 +110,7 @@ With the sort bar you can change the order of the dimensions and measures. It is
 
 ## Export to new application
 
-It is possible to export the current state of a selected data set to a new application. In the new application, master items will be created from your dimension and measures.
+It is possible to export the current state of a selected data set to a new application. In the new application, master items will be created from your dimension and measures. In Qlik Sense Enterprise the user need to have security rights to create an app for the feature to work. For June 2018 and later releases the new app will open in "Generate Insights"-mode that suggest charts based on the data. 
 
 <img src="./screenshots/ExporttonewApp.gif?raw=true" alt="ExporttonewApp" />
 
@@ -150,12 +150,16 @@ Like this extension? Check out the other Climber extensions below or visit <a hr
 
 ## Limitations
 
-1. No pdf/png export supported. (This also means no Nprinting support.)
-2. Calculation conditions in master items are not respected
-3. Master measure/dimension colors not respected
-4. A very small (collapsed) version of the extension could look nicer :-)
-5. Export to template only works in Qlik Sense Enterprise
-6. Unpublished sheets in a published app can't use Bookmarks
+* No pdf/png export supported. (This also means no Nprinting support.)
+* Calculation conditions in master items are not respected
+* Master measure/dimension colors not respected
+* A very small (collapsed) version of the extension could look nicer :-)
+* Export to template only works in Qlik Sense Enterprise
+* Unpublished sheets in a published app can't use Bookmarks
+* Show details is not implemented
+* Expression labels doesn't work in Qlik Sense November 2017 or prior
+* Expression labels only work for master measures/dimensions
+* Step back/forward needs to be clicked twice if a measure/dimension is added/removed (only Custom Report+)
 
 **Climber**
 * http://github.com/ClimberAB

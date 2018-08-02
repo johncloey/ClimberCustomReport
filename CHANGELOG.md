@@ -6,6 +6,19 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.3.0 - 2018-08-02
+### Added (Plus-version)
+- Defer layout update (experimental feature)
+### Changed
+- Climber Custom Report and Custom Report+ releases are from now on synced
+- Disable Use expression labels in QS Nov 2017 and prior
+### Fixed
+- Selections drop with large apps
+- qColumnOrder property sync issue
+- Reflow issue and CSS improvements (Firefox)
+### Fixed (Plus-version)
+- Step back/forward issue
+
 ## 2.2.1 - 2018-07-18
 ### Fixed
 - Source on Github out of sync with release
