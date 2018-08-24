@@ -4,7 +4,7 @@ Want to know how our extensions can bring unprecedented value to your business? 
 <a href="https://goo.gl/UqZGEP"><img src="./screenshots/Event_Sep 19_London.jpg?raw=true" alt="Custom Report" /></a>
 
 # Climber Custom Report
-<a href=",/releases/download/v2.3.0/cl-custom-report-v2.3.0.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
+<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.3.0/cl-custom-report-v2.3.0.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
 alt="Download latest release" width="400" height="40" border="0" /></a>  
  ### Self service without edit-mode for Qlik Sense!  
 
