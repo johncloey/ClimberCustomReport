@@ -4,8 +4,34 @@ Want to know how our extensions can bring unprecedented value to your business? 
 <a href="https://goo.gl/UqZGEP"><img src="./screenshots/Event_Sep 19_London.jpg?raw=true" alt="Custom Report" /></a>
 
 # Climber Custom Report
-<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.3.0/cl-custom-report-v2.3.0.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
+<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.4.0/cl-custom-report-v2.4.0.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
 alt="Download latest release" width="400" height="40" border="0" /></a>  
+
+## Most recent update 2.4.0 - 2018-08-30
+### Added
+- Show details
+- Hide data sets
+- Hide visualization settings
+- Hide export to app
+- Hide export data
+- Hide visibility fields and sortbar
+- Hide switch data sets 
+- Hide add/remove items
+- Icons option for changing visualization types
+### Added (Plus-version)
+- Show data labels Combo chart
+- Show data points Combo chart
+- Sort dimensions/measures Combo chart
+- Sort dimensions Pivot table
+### Changed
+- Totals on as default
+- Reorganized settings in property panel
+### Fixed
+- Perfect scrollbar bug
+- Fixed Export to app, fields with dangling spaces.
+
+Previous updates can be found here, <a href="CHANGELOG.md"> CHANGELOG </a>.
+
  ### Self service without edit-mode for Qlik Sense!  
 
 <img src="./screenshots/CustomReport.gif?raw=true" alt="Custom Report" />
@@ -86,7 +112,8 @@ How to use bookmarks
 
 <img src="./screenshots/AccessBookmarks.png?raw=true" alt="Access Bookmark" />
 
-*Note!* To support bookmarks using the Qlik Sense standard functionality, the extension creates and use variables starting with "ClimberCustomReport". These variables values are stored in the selection state and therefore in bookmarks. This is not the default behaviour of variables created in the Qlik Sense client. If you accidently delete the variable, entering Edit mode will recreate it if the app is not published. Variables are not automatically deleted. In the Custom Report+ state is stored even if Use Bookmarks is not enabled, but only applied if enabled. 
+*Note!* To support bookmarks using the Qlik Sense standard functionality, the extension creates and use variables starting with "ClimberCustomReport". These variables values are stored in the selection state and therefore in bookmarks. This is not the default behaviour of variables created in the Qlik Sense client. If you accidently delete the variable, entering Edit mode will recreate it if the app is not published. Variables are not automatically deleted. In the Custom Report+ state is stored even if Use Bookmarks is not enabled, but only applied if enabled.  
+*Note!* If the Custom Report should be used as a master items it need to disable Use Bookmarks and then enabled, after it's been added to the master library. This is due to the Custom Reports gets a new Id and a new variable needs to be created.  
 
 ## Sort Bar
 
@@ -113,6 +140,9 @@ With the sort bar you can change the order of the dimensions and measures. It is
 6. Add totals to table/pivot table
 <img src="./screenshots/AddTotals.png?raw=true" alt="AddTotals" />
 
+7. Right-click selected dimension/measures. Dimensions only for Pivot Table, both for Combo chart. Table handle sort inside the visualization.  
+<img src="./screenshots/SortDimensionMeasure.png?raw=true" alt="Sort Dimension/Measure" />  
+
 ## Export to new application
 
 It is possible to export the current state of a selected data set to a new application. In the new application, master items will be created from your dimension and measures. In Qlik Sense Enterprise the user need to have security rights to create an app for the feature to work. For June 2018 and later releases the new app will open in "Generate Insights"-mode that suggest charts based on the data. 
@@ -121,7 +151,7 @@ It is possible to export the current state of a selected data set to a new appli
 
 ## Export to new application using a template (Custom Report+)
 
-To enable this feature, enable experimental features in the extension settings (Appearance\Settings). 
+To enable this feature, Enable export to template features in the experimental settings (Settings\Experimental Settings). 
 
 ## Installation
 
@@ -157,7 +187,7 @@ Like this extension? Check out the other Climber extensions below or visit <a hr
 
 * No pdf/png export supported. (This also means no Nprinting support.)
 * Calculation conditions in master items are not respected
-* Master measure/dimension colors not respected
+* Master measure/dimension colors only in Combo chart
 * A very small (collapsed) version of the extension could look nicer :-)
 * Export to template only works in Qlik Sense Enterprise
 * Unpublished sheets in a published app can't use Bookmarks

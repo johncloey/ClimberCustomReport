@@ -6,6 +6,30 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+
+## 2.4.0 - 2018-08-30
+### Added
+- Show details
+- Hide data sets
+- Hide visualization settings
+- Hide export to app
+- Hide export data
+- Hide visibility fields and sortbar
+- Hide switch data sets 
+- Hide add/remove items
+- Icons option for changing visualization types
+### Added (Plus-version)
+- Show data labels Combo chart
+- Show data points Combo chart
+- Sort dimensions/measures Combo chart
+- Sort dimensions Pivot table
+### Changed
+- Totals on as default
+- Reorganized settings in property panel
+### Fixed
+- Perfect scrollbar bug
+- Fixed Export to app, fields with dangling spaces.
+
 ## 2.3.0 - 2018-08-02
 ### Added (Plus-version)
 - Defer layout update (experimental feature)
@@ -75,4 +99,15 @@ Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Remember column width within a session
 - Updated license
 
+
+# Circleci setup
+For make-beta-release tag
+- "version"-beta-"betaType""BetaNr" - DATE
+ex.
+- 1.5.1-beta-TEST2 - 2018-08-09
+
+For make-release tag
+- version - DATE
+ex.
+- 1.5.1
 
