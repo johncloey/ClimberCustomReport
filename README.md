@@ -4,31 +4,12 @@ Want to know how our extensions can bring unprecedented value to your business? 
 <a href="https://goo.gl/UqZGEP"><img src="./screenshots/Event_Sep 19_London.jpg?raw=true" alt="Custom Report" /></a>
 
 # Climber Custom Report
-<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.4.0/cl-custom-report-v2.4.0.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
+<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.4.1/cl-custom-report-v2.4.1.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
 alt="Download latest release" width="400" height="40" border="0" /></a>  
 
-## Most recent update 2.4.0 - 2018-08-30
-### Added
-- Show details
-- Hide data sets
-- Hide visualization settings
-- Hide export to app
-- Hide export data
-- Hide visibility fields and sortbar
-- Hide switch data sets 
-- Hide add/remove items
-- Icons option for changing visualization types
-### Added (Plus-version)
-- Show data labels Combo chart
-- Show data points Combo chart
-- Sort dimensions/measures Combo chart
-- Sort dimensions Pivot table
-### Changed
-- Totals on as default
-- Reorganized settings in property panel
-### Fixed
-- Perfect scrollbar bug
-- Fixed Export to app, fields with dangling spaces.
+## Most recent update 2.4.1 - 2018-09-06
+### Fixed (Plus-version)
+- Fixed ES-9720 Combo chart doesn't render if previous state exist
 
 Previous updates can be found here, <a href="CHANGELOG.md"> CHANGELOG </a>.
 

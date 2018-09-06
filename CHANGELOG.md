@@ -6,6 +6,9 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.1 - 2018-09-06
+### Fixed (Plus-version)
+- Fixed ES-9720 Combo chart doesn't render if previous state exist
 
 ## 2.4.0 - 2018-08-30
 ### Added
