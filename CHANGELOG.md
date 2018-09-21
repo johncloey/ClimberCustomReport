@@ -6,6 +6,15 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.2 - 2018-09-20
+### Fixed (Plus-version)
+- Add lint to CircleCi
+- Possible fix ES-9371
+- Fixed ES-9905 Master Item description on title hoover
+- Fixed ES-9720 export from Mashup proxy prefix replace
+- Fixed IE export and render problem
+
+
 ## 2.4.1 - 2018-09-06
 ### Fixed (Plus-version)
 - Fixed ES-9720 Combo chart doesn't render if previous state exist
