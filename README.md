@@ -1,14 +1,11 @@
 # Climber Custom Report
-<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.4.2/cl-custom-report-v2.4.2.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
+<a href="https://github.com/ClimberAB/ClimberCustomReport/releases/download/v2.4.3/cl-custom-report-v2.4.3.zip" target="_blank"><img src="./screenshots/downloadbutton.png?raw=true" 
 alt="Download latest release" width="400" height="40" border="0" /></a>  
 
-## Most recent update 2.4.2 - 2018-09-20
-### Fixed (Plus-version)
-- Add lint to CircleCi
-- Possible fix ES-9371
-- Fixed ES-9905 Master Item description on title hoover
-- Fixed ES-9720 export from Mashup proxy prefix replace
-- Fixed IE export and render problem
+## Most recent update 2.4.3 - 2018-09-29
+### Fixed 
+- Added Code Change Warning
+- Fixed #74 Climber Icon
 
 Previous updates can be found here, <a href="CHANGELOG.md"> CHANGELOG </a>.
 

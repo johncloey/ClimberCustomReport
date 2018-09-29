@@ -6,6 +6,11 @@ Project versioning adheres to [Semantic Versioning](http://semver.org/).
 Commit convention is based on [Conventional Commits](http://conventionalcommits.org).
 Change log format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.4.3 - 2018-09-29
+### Fixed 
+- Added Code Change Warning
+- Fixed #74 Climber Icon
+
 ## 2.4.2 - 2018-09-20
 ### Fixed (Plus-version)
 - Add lint to CircleCi
